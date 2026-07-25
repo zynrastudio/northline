@@ -9,7 +9,7 @@ type ProjectCardProps = {
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
-      href={`/portfolio/${project.slug}`}
+      href={`/case-studies/${project.slug}`}
       className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-border bg-white transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
     >
       <ContentImage

@@ -10,7 +10,7 @@ type BlogCardProps = {
 export function BlogCard({ post }: BlogCardProps) {
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={`/insights/${post.slug}`}
       className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-border bg-white transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
     >
       <ContentImage

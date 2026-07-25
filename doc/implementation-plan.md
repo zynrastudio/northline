@@ -1,4 +1,8 @@
-# Northline Creative — Implementation Plan
+# Northline Creative — Implementation Plan (Before)
+
+> **Status: Complete (before baseline).** This plan built the brochure “before” site.  
+> **After redesign:** follow [redesign-implementation-plan.md](./redesign-implementation-plan.md) and [website-redesign-strategy.md](./website-redesign-strategy.md).  
+> Do not apply this document’s “intentionally generic” rules to after work.
 
 **Version:** 1.0  
 **Source of truth:** [prd.md](./prd.md)  

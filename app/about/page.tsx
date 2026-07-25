@@ -1,80 +1,86 @@
+import Image from "next/image";
 import { aboutContent, siteSettings, teamMembers } from "@/content";
+import { HowWeOperate } from "@/components/about/HowWeOperate";
 import { CtaBand } from "@/components/shared/CtaBand";
-import { ContentImage } from "@/components/shared/ContentImage";
-import { PageHero } from "@/components/shared/PageHero";
+import { Button } from "@/components/shared/Button";
+import { Container } from "@/components/shared/Container";
+import { Reveal } from "@/components/shared/Reveal";
 import { Section, SectionHeading } from "@/components/shared/SectionHeading";
 import { TeamMemberCard } from "@/components/shared/TeamMemberCard";
+import { cta } from "@/lib/nav";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "About",
   description:
-    "Learn about Northline Creative—our mission, values, and the team behind our work.",
+    "Northline Creative is a strategic B2B growth partner. Operators and strategists accountable for pipeline, not just deliverables.",
   path: "/about",
 });
 
 export default function AboutPage() {
   return (
     <>
-      <PageHero
-        eyebrow="About"
-        title={`Meet ${siteSettings.companyName}`}
-        description="We are a professional, friendly creative agency helping businesses improve their online presence with modern design and digital strategy."
-        imageSrc="/images/pages/about-hero.jpg"
-        imageAlt="Northline Creative studio interior"
-        priority
-      />
+      <section className="relative isolate min-h-[70dvh] overflow-hidden bg-ink">
+        <Image
+          src="/images/home/phase-d-photo-01-hero-workshop.png"
+          alt="Northline strategists reviewing a growth plan together"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/55 to-ink/30"
+        />
+        <Container className="relative flex min-h-[70dvh] flex-col justify-end pb-14 pt-32 sm:pb-16">
+          <p className="text-sm font-medium tracking-wide text-white/70 uppercase">
+            About
+          </p>
+          <h1 className="mt-3 max-w-[16ch] font-[family-name:var(--font-outfit)] text-4xl font-medium tracking-tight text-white sm:text-5xl lg:text-6xl">
+            A growth partner, not a vendor.
+          </h1>
+          <p className="mt-5 max-w-[50ch] text-base leading-relaxed text-white/80 sm:text-lg">
+            {aboutContent.positioningStatement}
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Button href={cta.primary.href} withArrow>
+              {cta.primary.label}
+            </Button>
+            <Button href={cta.secondary.href} variant="ghost">
+              {cta.secondary.label}
+            </Button>
+          </div>
+        </Container>
+      </section>
 
       <Section>
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
-          <div>
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">
-              Company overview
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <Reveal className="lg:col-span-7">
+            <h2 className="font-[family-name:var(--font-outfit)] text-2xl font-medium tracking-tight text-ink sm:text-3xl">
+              What we do
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
+            <p className="mt-4 text-base leading-relaxed text-steel sm:text-lg">
               {aboutContent.overview}
             </p>
-            <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
-              Our clients include small businesses, startups, local companies,
-              professional services, and ecommerce brands looking for creative
-              support they can trust.
-            </p>
-          </div>
-          <div>
-            <h2 className="text-3xl font-semibold tracking-tight text-ink">
-              Our mission
+          </Reveal>
+          <Reveal className="lg:col-span-5" delay={0.06}>
+            <h2 className="font-[family-name:var(--font-outfit)] text-2xl font-medium tracking-tight text-ink sm:text-3xl">
+              Why we do it
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
+            <p className="mt-4 text-base leading-relaxed text-steel sm:text-lg">
               {aboutContent.mission}
             </p>
-          </div>
+          </Reveal>
         </div>
       </Section>
 
-      <Section className="bg-surface-muted">
-        <SectionHeading
-          title="Our values"
-          description="The principles that guide how we work with every client."
-        />
-        <div className="grid gap-6 sm:grid-cols-2">
-          {aboutContent.values.map((value) => (
-            <article
-              key={value.title}
-              className="rounded-[var(--radius-card)] border border-border bg-white p-6"
-            >
-              <h3 className="text-xl font-semibold text-ink">{value.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
-                {value.description}
-              </p>
-            </article>
-          ))}
-        </div>
-      </Section>
+      <HowWeOperate />
 
       <Section>
         <SectionHeading
-          title="Meet the team"
-          description="Designers, strategists, developers, and marketers working together for your brand."
+          title="Who you work with"
+          description="Operators and strategists who stay accountable from diagnosis through growth."
         />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {teamMembers.map((member) => (
@@ -83,31 +89,9 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section className="bg-surface-muted">
-        <SectionHeading
-          title="Our office"
-          description="A collaborative studio where branding, websites, and campaigns come together."
-        />
-        <div className="grid gap-6 md:grid-cols-3">
-          {aboutContent.officeImages.map((image) => (
-            <figure key={image.src}>
-              <ContentImage
-                src={image.src}
-                alt={image.alt}
-                aspect="photo"
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
-              <figcaption className="mt-3 text-sm text-muted">
-                {image.caption}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </Section>
-
       <CtaBand
-        title="Want to work with us?"
-        description="Reach out to start a conversation about your website, brand, or next campaign."
+        title={`Consider ${siteSettings.companyName} for the next phase.`}
+        description="Book a strategy consultation and see how we would approach your growth."
       />
     </>
   );

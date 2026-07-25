@@ -1,37 +1,51 @@
-import { siteSettings } from "@/content";
+import Image from "next/image";
+import { homeContent } from "@/content/home";
+import { cta } from "@/lib/nav";
 import { Button } from "@/components/shared/Button";
 import { Container } from "@/components/shared/Container";
-import { ContentImage } from "@/components/shared/ContentImage";
 
 export function HomeHero() {
+  const { brand, headline, support, image, imageAlt } = homeContent.hero;
+
   return (
-    <section className="border-b border-border bg-surface-muted">
-      <Container className="grid items-center gap-10 py-16 lg:grid-cols-2 lg:gap-12 lg:py-24">
-        <div>
-          <p className="text-sm font-medium uppercase tracking-wide text-brand">
-            {siteSettings.companyName}
+    <section className="relative isolate min-h-[100dvh] overflow-hidden bg-ink">
+      <Image
+        src={image}
+        alt={imageAlt}
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-r from-ink/88 via-ink/72 to-ink/35"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-ink/25"
+      />
+
+      <Container className="relative flex min-h-[100dvh] flex-col justify-end pb-16 pt-28 sm:pb-20 sm:pt-32 lg:pb-24 lg:pt-24">
+        <div className="max-w-2xl">
+          <p className="font-[family-name:var(--font-outfit)] text-4xl font-medium tracking-tight text-white sm:text-5xl lg:text-6xl">
+            {brand}
           </p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-ink sm:text-5xl lg:text-6xl">
-            {siteSettings.tagline}
+          <h1 className="mt-4 max-w-[18ch] font-[family-name:var(--font-outfit)] text-3xl font-medium tracking-tight text-white sm:text-4xl lg:text-5xl">
+            {headline}
           </h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
-            We help businesses build their brand, grow online, and create digital
-            experiences that feel professional and polished.
+          <p className="mt-5 max-w-[36ch] text-base leading-relaxed text-white/80 sm:text-lg">
+            {support}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/contact">Contact Us</Button>
-            <Button href="/portfolio" variant="secondary">
-              View Portfolio
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Button href={cta.primary.href} withArrow>
+              {cta.primary.label}
+            </Button>
+            <Button href={cta.secondary.href} variant="ghost">
+              {cta.secondary.label}
             </Button>
           </div>
         </div>
-        <ContentImage
-          src="/images/pages/home-hero.jpg"
-          alt="Creative team collaborating in a modern office"
-          aspect="photo"
-          priority
-          sizes="(max-width: 1024px) 100vw, 50vw"
-        />
       </Container>
     </section>
   );

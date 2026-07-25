@@ -1,10 +1,12 @@
+import { homeContent } from "@/content/home";
 import { siteSettings } from "@/content";
-import { HomeAboutPreview } from "@/components/home/HomeAboutPreview";
-import { HomeBlogPreview } from "@/components/home/HomeBlogPreview";
 import { HomeHero } from "@/components/home/HomeHero";
-import { HomeProjects } from "@/components/home/HomeProjects";
-import { HomeServices } from "@/components/home/HomeServices";
-import { HomeTestimonials } from "@/components/home/HomeTestimonials";
+import { HomePositioning } from "@/components/home/HomePositioning";
+import { HomePillars } from "@/components/home/HomePillars";
+import { HomeProof } from "@/components/home/HomeProof";
+import { HomeIndustries } from "@/components/home/HomeIndustries";
+import { HomeProcess } from "@/components/home/HomeProcess";
+import { HomeInsights } from "@/components/home/HomeInsights";
 import { CtaBand } from "@/components/shared/CtaBand";
 import { buildMetadata } from "@/lib/seo";
 
@@ -17,12 +19,16 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
-      <HomeServices />
-      <HomeProjects />
-      <HomeAboutPreview />
-      <HomeTestimonials />
-      <HomeBlogPreview />
-      <CtaBand />
+      <HomePositioning />
+      <HomePillars />
+      <HomeProof />
+      <HomeIndustries />
+      <HomeProcess />
+      <HomeInsights />
+      <CtaBand
+        title={homeContent.cta.title}
+        description={homeContent.cta.description}
+      />
     </>
   );
 }

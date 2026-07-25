@@ -1,3 +1,4 @@
+import { cta } from "@/lib/nav";
 import { Button } from "@/components/shared/Button";
 import { Container } from "@/components/shared/Container";
 
@@ -6,44 +7,44 @@ type CtaBandProps = {
   description?: string;
   primaryLabel?: string;
   primaryHref?: string;
-  secondaryLabel?: string;
+  /** Omit or pass null to show a single primary CTA (no duplicate intent). */
+  secondaryLabel?: string | null;
   secondaryHref?: string;
 };
 
 export function CtaBand({
-  title = "Ready to start your next project?",
-  description = "Tell us about your business and how we can help. We would love to hear from you.",
-  primaryLabel = "Contact Us",
-  primaryHref = "/contact",
-  secondaryLabel = "View Portfolio",
-  secondaryHref = "/portfolio",
+  title = "Ready for a clearer growth path.",
+  description = "Book a strategy consultation and map your next move.",
+  primaryLabel = cta.primary.label,
+  primaryHref = cta.primary.href,
+  secondaryLabel = null,
+  secondaryHref = cta.secondary.href,
 }: CtaBandProps) {
   return (
-    <section className="bg-brand py-16 sm:py-20">
+    <section className="bg-surface pb-24 sm:pb-28">
       <Container>
-        <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-10 rounded-[1.5rem] bg-brand px-8 py-14 sm:px-12 sm:py-16 md:flex-row md:items-end md:justify-between lg:px-16">
           <div className="max-w-xl">
-            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            <h2 className="font-[family-name:var(--font-outfit)] text-3xl font-medium tracking-tight text-white sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
               {title}
             </h2>
-            <p className="mt-3 text-base leading-relaxed text-blue-100 sm:text-lg">
+            <p className="mt-4 max-w-[40ch] text-base leading-relaxed text-white/80 sm:text-lg">
               {description}
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <Button
               href={primaryHref}
-              className="bg-white text-brand hover:bg-blue-50"
+              withArrow
+              className="bg-white text-brand hover:bg-brand-subtle"
             >
               {primaryLabel}
             </Button>
-            <Button
-              href={secondaryHref}
-              variant="secondary"
-              className="border-white bg-transparent text-white hover:bg-white/10"
-            >
-              {secondaryLabel}
-            </Button>
+            {secondaryLabel ? (
+              <Button href={secondaryHref} variant="ghost">
+                {secondaryLabel}
+              </Button>
+            ) : null}
           </div>
         </div>
       </Container>

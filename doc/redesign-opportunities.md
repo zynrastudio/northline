@@ -47,3 +47,6 @@ Client portal, CRM workflows, calculators, personalization, proposal generation,
 ---
 
 When starting the **after** site: create branch `after`, Vercel project `northline-after`, and keep `before` / `northline-before` unchanged except for critical fixes.
+
+**Execution plan:** [redesign-implementation-plan.md](./redesign-implementation-plan.md) (skills: brandkit → redesign-existing-projects → design-taste-frontend + high-end-visual-design).  
+**Strategy:** [website-redesign-strategy.md](./website-redesign-strategy.md).

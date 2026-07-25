@@ -4,18 +4,22 @@ Fictional marketing-agency website used as the **before** baseline for a redesig
 
 | Doc | Purpose |
 | --- | --- |
-| [doc/prd.md](./doc/prd.md) | Product requirements |
-| [doc/implementation-plan.md](./doc/implementation-plan.md) | Phased build plan |
+| [doc/prd.md](./doc/prd.md) | Before product requirements |
+| [doc/implementation-plan.md](./doc/implementation-plan.md) | Before phased build (complete) |
 | [doc/redesign-opportunities.md](./doc/redesign-opportunities.md) | Intentional gaps for the after redesign |
+| [doc/website-redesign-strategy.md](./doc/website-redesign-strategy.md) | After strategic positioning |
+| [doc/redesign-implementation-plan.md](./doc/redesign-implementation-plan.md) | After phased redesign (brand kit → launch) |
+| [doc/brand-tokens.md](./doc/brand-tokens.md) | After brand kit lock (Phase A) |
+| [doc/redesign-audit.md](./doc/redesign-audit.md) | After redesign diagnosis (Phase B) |
 
 ## Live URLs
 
 | Version | Branch | Vercel project | URL |
 | --- | --- | --- | --- |
 | **Before** (this site) | `before` | `northline-before` | https://northline-before.vercel.app |
-| **After** (future redesign) | `after` | `northline-after` | _not created yet_ |
+| **After** (redesign) | `after` | `northline-after` | _not created yet_ |
 
-Keep the before URL permanent. Redesign work belongs on `after` / `northline-after` only.
+Keep the before URL permanent. Redesign work belongs on `after` / `northline-after` only. Start with [doc/redesign-implementation-plan.md](./doc/redesign-implementation-plan.md) Phase A (brand kit).
 
 ## Stack
 

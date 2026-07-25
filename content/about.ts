@@ -5,46 +5,48 @@ export type CompanyValue = {
 
 export const aboutContent = {
   overview:
-    "Northline Creative is a full-service creative and digital agency. We help businesses improve their online presence through websites, branding, marketing, design, and digital strategy. Growing primarily through referrals and repeat clients, we partner with teams who want a polished, professional presence online.",
+    "Northline Creative is a strategic growth partner for B2B companies. We work at the intersection of positioning, digital experience, and automation, so the website stops being a brochure and starts producing qualified conversations. Most of our work comes from referrals and repeat engagements, which is how we prefer to grow.",
   mission:
-    "Our mission is to help modern businesses present themselves with clarity and creativity—so they can connect with customers, share their story, and grow with confidence.",
+    "Our mission is to help B2B companies acquire better customers. Not more traffic, not more impressions. Better customers, reached through clearer direction and digital work that can be measured.",
+  positioningStatement:
+    "We are not a vendor executing a deck. We are the partner accountable for whether the work produces pipeline.",
   values: [
     {
-      title: "Quality",
+      title: "Outcomes over output",
       description:
-        "We care about clean design, clear messaging, and work that holds up across every touchpoint.",
+        "A deliverable that does not change a number is a cost. We agree on the metric before we agree on the scope.",
     },
     {
-      title: "Partnership",
+      title: "Clarity as a discipline",
       description:
-        "We listen closely, communicate openly, and treat every engagement as a collaboration.",
+        "Most digital problems are decision problems. We do the harder work of narrowing focus before designing anything.",
     },
     {
-      title: "Creativity",
+      title: "Partnership, not handoff",
       description:
-        "We bring fresh ideas to branding, websites, and campaigns while staying practical and on-brief.",
+        "We stay past launch. Strategy, build, and iteration belong to the same team, or the thread gets dropped.",
     },
     {
-      title: "Reliability",
+      title: "Evidence over opinion",
       description:
-        "Deadlines, updates, and launches matter. We keep projects organized from kickoff to delivery.",
+        "Research, analytics, and experiments settle debates that would otherwise be settled by whoever is loudest.",
     },
   ] satisfies CompanyValue[],
   officeImages: [
     {
       src: "/images/office/studio.jpg",
-      alt: "Our studio workspace with desks and large windows",
-      caption: "Our studio workspace",
+      alt: "Studio workspace with desks and large windows",
+      caption: "Where the strategy work happens",
     },
     {
       src: "/images/office/collaboration.jpg",
       alt: "Team collaborating in a glass conference room",
-      caption: "Collaboration in progress",
+      caption: "Working sessions, not status calls",
     },
     {
       src: "/images/office/workshop.jpg",
       alt: "Client workshop session around a long table",
-      caption: "Client workshop session",
+      caption: "Diagnosis starts with your team",
     },
   ],
 };
