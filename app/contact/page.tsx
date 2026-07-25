@@ -20,7 +20,7 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Let's talk about your project"
         description="Tell us about your business and goals. This simple form is our consultation request—no lengthy intake process."
-        imageSrc="/images/pages/contact-hero.png"
+        imageSrc="/images/pages/contact-hero.jpg"
         imageAlt="Client workshop at the Northline studio"
         priority
       />

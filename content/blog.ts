@@ -12,7 +12,7 @@ Start by clarifying your homepage message so visitors understand what you do wit
 
 Small, practical improvements often create a stronger first impression without a complete rebuild.`,
     date: "2026-05-12",
-    cover: "/images/blog/website-refresh.png",
+    cover: "/images/blog/website-refresh.jpg",
     tags: ["websites", "tips"],
   },
   {
@@ -26,7 +26,7 @@ A useful guide typically covers logo variations and clear space, primary and sec
 
 If you are preparing for a rebrand or website launch, establishing these rules early saves time later.`,
     date: "2026-04-28",
-    cover: "/images/blog/brand-guidelines.png",
+    cover: "/images/blog/brand-guidelines.jpg",
     tags: ["branding", "design"],
   },
   {
@@ -40,7 +40,7 @@ We are also continuing to invest in better collaboration between design and deve
 
 Thanks to the teams who trusted us with their projects this quarter—we are looking forward to the work ahead.`,
     date: "2026-04-03",
-    cover: "/images/blog/studio-notes-spring.png",
+    cover: "/images/blog/studio-notes-spring.jpg",
     tags: ["agency", "updates"],
   },
   {
@@ -54,7 +54,7 @@ We often look at how successful service brands structure hero sections, service 
 
 Inspiration works best when it helps your team make faster, more confident design decisions.`,
     date: "2026-03-18",
-    cover: "/images/blog/corporate-layouts.png",
+    cover: "/images/blog/corporate-layouts.jpg",
     tags: ["design", "inspiration"],
   },
   {
@@ -68,7 +68,7 @@ Also check mobile rendering, file sizes, and brand guideline compliance. A short
 
 When creative, copy, and destination pages work together, campaigns are easier to measure and improve.`,
     date: "2026-02-25",
-    cover: "/images/blog/campaign-assets.png",
+    cover: "/images/blog/campaign-assets.jpg",
     tags: ["marketing", "tips"],
   },
   {
@@ -82,7 +82,7 @@ Effective service pages explain the offering in plain language, outline what cli
 
 If your services have grown over time, a content pass on these pages is one of the highest-leverage website improvements you can make.`,
     date: "2026-01-30",
-    cover: "/images/blog/service-pages.png",
+    cover: "/images/blog/service-pages.jpg",
     tags: ["websites", "content"],
   },
 ];

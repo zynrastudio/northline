@@ -14,7 +14,7 @@ export const services: Service[] = [
       "Clear page structure for key business pages",
       "Support for ongoing updates and improvements",
     ],
-    image: "/images/services/website-design.png",
+    image: "/images/services/website-design.jpg",
     relatedProjectSlugs: ["summit-health-website", "brightpath-retail", "ledgerly-rebrand"],
   },
   {
@@ -30,7 +30,7 @@ export const services: Service[] = [
       "Practical brand guidelines for your team",
       "Assets ready for web, social, and print",
     ],
-    image: "/images/services/branding.png",
+    image: "/images/services/branding.jpg",
     relatedProjectSlugs: ["ledgerly-rebrand", "harborview-hospitality", "northpeak-education"],
   },
   {
@@ -46,7 +46,7 @@ export const services: Service[] = [
       "Email campaigns that stay on brand",
       "Paid advertising setup and creative support",
     ],
-    image: "/images/services/digital-marketing.png",
+    image: "/images/services/digital-marketing.jpg",
     relatedProjectSlugs: ["brightpath-retail", "apex-manufacturing", "carefirst-clinic"],
   },
   {
@@ -62,7 +62,7 @@ export const services: Service[] = [
       "Short-form video for web and social",
       "Content that aligns with your visual identity",
     ],
-    image: "/images/services/content-creation.png",
+    image: "/images/services/content-creation.jpg",
     relatedProjectSlugs: ["harborview-hospitality", "northpeak-education", "summit-health-website"],
   },
   {
@@ -78,7 +78,7 @@ export const services: Service[] = [
       "Print-ready assets and templates",
       "Visual consistency across campaigns",
     ],
-    image: "/images/services/graphic-design.png",
+    image: "/images/services/graphic-design.jpg",
     relatedProjectSlugs: ["apex-manufacturing", "ledgerly-rebrand", "carefirst-clinic"],
   },
   {
@@ -94,7 +94,7 @@ export const services: Service[] = [
       "Clickable prototypes for review",
       "Design handoff support for developers",
     ],
-    image: "/images/services/ui-ux-design.png",
+    image: "/images/services/ui-ux-design.jpg",
     relatedProjectSlugs: ["brightpath-retail", "summit-health-website", "northpeak-education"],
   },
 ];

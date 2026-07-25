@@ -8,7 +8,7 @@ export function HomeAboutPreview() {
     <Section>
       <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
         <ContentImage
-          src="/images/pages/about-preview.png"
+          src="/images/pages/about-preview.jpg"
           alt="Northline Creative studio workspace"
           aspect="photo"
           sizes="(max-width: 1024px) 100vw, 50vw"

@@ -20,7 +20,7 @@ export default function PortfolioPage() {
         title="Selected work"
         description="A selection of websites, branding, and digital projects for businesses across many industries."
         showCtas
-        imageSrc="/images/pages/portfolio-hero.png"
+        imageSrc="/images/pages/portfolio-hero.jpg"
         imageAlt="Selected Northline portfolio work"
         priority
       />

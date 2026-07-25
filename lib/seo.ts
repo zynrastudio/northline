@@ -14,7 +14,7 @@ export function buildMetadata({
   title,
   description = siteSettings.description,
   path = "/",
-  image = "/images/og-default.png",
+  image = "/images/og-default.jpg",
 }: BuildMetadataInput = {}): Metadata {
   const pageTitle = title
     ? `${title} | ${siteSettings.companyName}`

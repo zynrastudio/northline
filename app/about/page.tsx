@@ -20,7 +20,7 @@ export default function AboutPage() {
         eyebrow="About"
         title={`Meet ${siteSettings.companyName}`}
         description="We are a professional, friendly creative agency helping businesses improve their online presence with modern design and digital strategy."
-        imageSrc="/images/pages/about-hero.png"
+        imageSrc="/images/pages/about-hero.jpg"
         imageAlt="Northline Creative studio interior"
         priority
       />

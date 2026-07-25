@@ -26,7 +26,7 @@ export function HomeHero() {
           </div>
         </div>
         <ContentImage
-          src="/images/pages/home-hero.png"
+          src="/images/pages/home-hero.jpg"
           alt="Creative team collaborating in a modern office"
           aspect="photo"
           priority

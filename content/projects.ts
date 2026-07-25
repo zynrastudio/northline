@@ -8,12 +8,12 @@ export const projects: Project[] = [
     summary: "A clean corporate website for a regional healthcare group.",
     overview:
       "Summit Health needed a refreshed online presence to present their clinics, services, and care philosophy. We delivered a professional marketing website with clear navigation and approachable imagery.",
-    hero: "/images/projects/summit-health/hero.png",
+    hero: "/images/projects/summit-health/hero.jpg",
     services: ["website-design", "content-creation", "ui-ux-design"],
     gallery: [
-      "/images/projects/summit-health/gallery-1.png",
-      "/images/projects/summit-health/gallery-2.png",
-      "/images/projects/summit-health/gallery-3.png",
+      "/images/projects/summit-health/gallery-1.jpg",
+      "/images/projects/summit-health/gallery-2.jpg",
+      "/images/projects/summit-health/gallery-3.jpg",
     ],
   },
   {
@@ -23,12 +23,12 @@ export const projects: Project[] = [
     summary: "Visual identity and brand guidelines for a growing fintech startup.",
     overview:
       "Ledgerly asked us to modernize their brand as they expanded into new markets. The engagement covered logo refinement, a flexible visual system, and guidelines for internal and external teams.",
-    hero: "/images/projects/ledgerly/hero.png",
+    hero: "/images/projects/ledgerly/hero.jpg",
     services: ["branding", "graphic-design", "website-design"],
     gallery: [
-      "/images/projects/ledgerly/gallery-1.png",
-      "/images/projects/ledgerly/gallery-2.png",
-      "/images/projects/ledgerly/gallery-3.png",
+      "/images/projects/ledgerly/gallery-1.jpg",
+      "/images/projects/ledgerly/gallery-2.jpg",
+      "/images/projects/ledgerly/gallery-3.jpg",
     ],
   },
   {
@@ -38,12 +38,12 @@ export const projects: Project[] = [
     summary: "Ecommerce-focused site design and campaign creative for a lifestyle brand.",
     overview:
       "BrightPath wanted a brighter digital storefront and supporting campaign assets. We designed key site templates and marketing creative to help the brand feel cohesive across web and social.",
-    hero: "/images/projects/brightpath/hero.png",
+    hero: "/images/projects/brightpath/hero.jpg",
     services: ["website-design", "digital-marketing", "ui-ux-design"],
     gallery: [
-      "/images/projects/brightpath/gallery-1.png",
-      "/images/projects/brightpath/gallery-2.png",
-      "/images/projects/brightpath/gallery-3.png",
+      "/images/projects/brightpath/gallery-1.jpg",
+      "/images/projects/brightpath/gallery-2.jpg",
+      "/images/projects/brightpath/gallery-3.jpg",
     ],
   },
   {
@@ -53,12 +53,12 @@ export const projects: Project[] = [
     summary: "Brand storytelling and content for a boutique hotel collection.",
     overview:
       "Harborview needed content and visual direction that captured the feel of their properties. We produced photography direction, web copy, and supporting brand materials for guest-facing channels.",
-    hero: "/images/projects/harborview/hero.png",
+    hero: "/images/projects/harborview/hero.jpg",
     services: ["branding", "content-creation"],
     gallery: [
-      "/images/projects/harborview/gallery-1.png",
-      "/images/projects/harborview/gallery-2.png",
-      "/images/projects/harborview/gallery-3.png",
+      "/images/projects/harborview/gallery-1.jpg",
+      "/images/projects/harborview/gallery-2.jpg",
+      "/images/projects/harborview/gallery-3.jpg",
     ],
   },
   {
@@ -68,12 +68,12 @@ export const projects: Project[] = [
     summary: "A straightforward company site and sales collateral for an industrial brand.",
     overview:
       "Apex needed a dependable web presence and print-ready materials for trade shows. We built a clear brochure site and complementary graphic design assets for their sales team.",
-    hero: "/images/projects/apex/hero.png",
+    hero: "/images/projects/apex/hero.jpg",
     services: ["website-design", "graphic-design", "digital-marketing"],
     gallery: [
-      "/images/projects/apex/gallery-1.png",
-      "/images/projects/apex/gallery-2.png",
-      "/images/projects/apex/gallery-3.png",
+      "/images/projects/apex/gallery-1.jpg",
+      "/images/projects/apex/gallery-2.jpg",
+      "/images/projects/apex/gallery-3.jpg",
     ],
   },
   {
@@ -83,12 +83,12 @@ export const projects: Project[] = [
     summary: "Interface design and prototype for a learning platform redesign.",
     overview:
       "Northpeak engaged us to explore a clearer learning experience. We delivered wireframes, UI designs, and a clickable prototype to align stakeholders around the new product direction.",
-    hero: "/images/projects/northpeak/hero.png",
+    hero: "/images/projects/northpeak/hero.jpg",
     services: ["ui-ux-design", "branding", "content-creation"],
     gallery: [
-      "/images/projects/northpeak/gallery-1.png",
-      "/images/projects/northpeak/gallery-2.png",
-      "/images/projects/northpeak/gallery-3.png",
+      "/images/projects/northpeak/gallery-1.jpg",
+      "/images/projects/northpeak/gallery-2.jpg",
+      "/images/projects/northpeak/gallery-3.jpg",
     ],
   },
   {
@@ -98,12 +98,12 @@ export const projects: Project[] = [
     summary: "Local awareness campaign creative and landing page support.",
     overview:
       "CareFirst needed campaign materials to promote new clinic services. We designed landing page layouts, digital ads, and supporting graphics for a multi-channel launch.",
-    hero: "/images/projects/carefirst/hero.png",
+    hero: "/images/projects/carefirst/hero.jpg",
     services: ["digital-marketing", "graphic-design", "content-creation"],
     gallery: [
-      "/images/projects/carefirst/gallery-1.png",
-      "/images/projects/carefirst/gallery-2.png",
-      "/images/projects/carefirst/gallery-3.png",
+      "/images/projects/carefirst/gallery-1.jpg",
+      "/images/projects/carefirst/gallery-2.jpg",
+      "/images/projects/carefirst/gallery-3.jpg",
     ],
   },
   {
@@ -113,12 +113,12 @@ export const projects: Project[] = [
     summary: "A modern company website for a logistics software provider.",
     overview:
       "Parcel Tech wanted a professional site to explain their platform and build trust with enterprise prospects. We delivered a structured marketing site with product-focused pages and clean visuals.",
-    hero: "/images/projects/parcel-tech/hero.png",
+    hero: "/images/projects/parcel-tech/hero.jpg",
     services: ["website-design", "ui-ux-design", "branding"],
     gallery: [
-      "/images/projects/parcel-tech/gallery-1.png",
-      "/images/projects/parcel-tech/gallery-2.png",
-      "/images/projects/parcel-tech/gallery-3.png",
+      "/images/projects/parcel-tech/gallery-1.jpg",
+      "/images/projects/parcel-tech/gallery-2.jpg",
+      "/images/projects/parcel-tech/gallery-3.jpg",
     ],
   },
 ];

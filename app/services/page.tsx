@@ -19,7 +19,7 @@ export default function ServicesPage() {
         eyebrow="Services"
         title="Creative digital services for modern businesses"
         description="We offer a full range of design, marketing, and digital services to help you build your brand, grow your business, and reach more customers."
-        imageSrc="/images/pages/services-hero.png"
+        imageSrc="/images/pages/services-hero.jpg"
         imageAlt="Digital design and marketing workspace"
         priority
       />

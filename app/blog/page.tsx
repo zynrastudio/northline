@@ -22,7 +22,7 @@ export default function BlogPage() {
         title="Ideas and updates from the studio"
         description="Agency notes, marketing tips, and design inspiration for growing businesses."
         showCtas
-        imageSrc="/images/pages/blog-hero.png"
+        imageSrc="/images/pages/blog-hero.jpg"
         imageAlt="Studio desk with creative materials"
         priority
       />

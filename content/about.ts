@@ -32,17 +32,17 @@ export const aboutContent = {
   ] satisfies CompanyValue[],
   officeImages: [
     {
-      src: "/images/office/studio.png",
+      src: "/images/office/studio.jpg",
       alt: "Our studio workspace with desks and large windows",
       caption: "Our studio workspace",
     },
     {
-      src: "/images/office/collaboration.png",
+      src: "/images/office/collaboration.jpg",
       alt: "Team collaborating in a glass conference room",
       caption: "Collaboration in progress",
     },
     {
-      src: "/images/office/workshop.png",
+      src: "/images/office/workshop.jpg",
       alt: "Client workshop session around a long table",
       caption: "Client workshop session",
     },
