@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Northline Creative — Before Site
 
-## Getting Started
+Fictional marketing-agency website used as the **before** baseline for a redesign case study.
 
-First, run the development server:
+| Doc | Purpose |
+| --- | --- |
+| [doc/prd.md](./doc/prd.md) | Product requirements |
+| [doc/implementation-plan.md](./doc/implementation-plan.md) | Phased build plan |
+| [doc/redesign-opportunities.md](./doc/redesign-opportunities.md) | Intentional gaps for the after redesign |
+
+## Live URLs
+
+| Version | Branch | Vercel project | URL |
+| --- | --- | --- | --- |
+| **Before** (this site) | `before` | `northline-before` | _set after deploy_ |
+| **After** (future redesign) | `after` | `northline-after` | _not created yet_ |
+
+Keep the before URL permanent. Redesign work belongs on `after` / `northline-after` only.
+
+## Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Resend (contact form email)
+- Google Analytics 4 (optional)
+
+## Local setup
+
+```bash
+npm install
+cp .env.example .env.local
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+### Environment variables
+
+Copy from `.env.example`:
+
+| Variable | Required | Notes |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Recommended in prod | Canonical URL, sitemap, robots |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Optional | GA4 measurement ID |
+| `RESEND_API_KEY` | Required for real email | Without it, local dev logs inquiries |
+| `CONTACT_TO_EMAIL` | Optional | Defaults to site contact email |
+| `CONTACT_FROM_EMAIL` | Optional | Verified Resend sender |
+
+## Content editing
+
+Typed content lives under `content/`:
+
+- `site.ts` — company settings
+- `services.ts` — six services
+- `projects.ts` — portfolio
+- `team.ts` / `about.ts` — about page
+- `blog.ts` — articles
+- `testimonials.ts` — homepage quotes
+
+Images are in `public/images/`. Paths in content should match files on disk.
+
+## Branch strategy
+
+```
+before  → frozen brochure site (museum piece; bug fixes only)
+after   → future redesign (create when redesign starts)
+main/master → can track the active default; production for before is the `before` branch
+```
+
+## Scripts
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm run start
+npm run lint
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

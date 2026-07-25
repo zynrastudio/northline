@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" role="img" aria-labelledby="northlineLogoTitle">
+  <title id="northlineLogoTitle">Northline Creative</title>
+  <rect width="40" height="40" rx="8" fill="#2563EB"/>
+  <path d="M10 28V12h3.2l8.4 11.2V12H25v16h-3.2L13.4 16.8V28H10Z" fill="#FFFFFF"/>
+  <path d="M28 28V18.5h2.6V28H28Z" fill="#BFDBFE"/>
+</svg>
