@@ -17,7 +17,7 @@ Fictional marketing-agency website used as the **before** baseline for a redesig
 | Version | Branch | Vercel project | URL |
 | --- | --- | --- | --- |
 | **Before** (this site) | `before` | `northline-before` | https://northline-before.vercel.app |
-| **After** (redesign) | `after` | `northline-after` | _not created yet_ |
+| **After** (redesign) | `after` | `northline-after` | https://northline-after.vercel.app |
 
 Keep the before URL permanent. Redesign work belongs on `after` / `northline-after` only. Start with [doc/redesign-implementation-plan.md](./doc/redesign-implementation-plan.md) Phase A (brand kit).
 

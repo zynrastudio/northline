@@ -25,7 +25,7 @@ export default function ContactPage() {
         priority
       />
 
-      <section className="py-16 sm:py-20">
+      <section className="py-20 sm:py-24">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
             <div>

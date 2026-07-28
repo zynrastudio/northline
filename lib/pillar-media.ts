@@ -1,21 +1,21 @@
 import type { PillarSlug } from "@/content/types";
 
-/** Phase D photography assigned per pillar (kit image-direction). */
+/** Dedicated Soft Structuralism photography per pillar — not home phase-d reuse. */
 export const pillarImage: Record<PillarSlug, { src: string; alt: string }> = {
   strategy: {
-    src: "/images/home/phase-d-photo-03-whiteboard-strategy.png",
-    alt: "Strategy whiteboard with positioning frameworks and decision notes",
+    src: "/images/solutions/strategy-hero.jpg",
+    alt: "Positioning thesis notebook and prioritized growth backlog on an editorial strategy desk",
   },
   "digital-experiences": {
-    src: "/images/home/phase-d-photo-01-hero-workshop.png",
-    alt: "Team reviewing interface and journey plans in a strategy workshop",
+    src: "/images/solutions/digital-experiences-hero.jpg",
+    alt: "Annotated website study with wireframes and a single primary CTA marked",
   },
   "business-automation": {
-    src: "/images/home/phase-d-photo-04-case-proof.png",
-    alt: "Operators reviewing routed pipeline and qualification results",
+    src: "/images/solutions/business-automation-hero.jpg",
+    alt: "Qualification worksheet, scoring tiers, and CRM routing notes on a calm operators desk",
   },
   "growth-enablement": {
-    src: "/images/home/phase-d-photo-06-insight-desk.png",
-    alt: "Editorial desk with growth playbooks and reporting notes",
+    src: "/images/solutions/growth-enablement-hero.jpg",
+    alt: "Quarterly growth review materials with experiment notes and reporting folder",
   },
 };

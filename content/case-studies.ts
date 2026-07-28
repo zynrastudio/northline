@@ -28,12 +28,12 @@ export const caseStudies: CaseStudy[] = [
       "Sales collateral and the website must share one argument, or trust leaks at the handoff.",
     ],
     pillars: ["strategy", "digital-experiences", "business-automation"],
-    hero: "/images/home/phase-d-photo-05-industry-precision.png",
-    heroAlt: "Industrial architectural interior with precise structural lines",
+    hero: "/images/case-studies/apex-manufacturing-hero.jpg",
+    heroAlt:
+      "Precise industrial workspace with specification binders and a structured quote-request path",
     gallery: [
-      "/images/projects/apex/gallery-1.jpg",
-      "/images/projects/apex/gallery-2.jpg",
-      "/images/projects/apex/gallery-3.jpg",
+      "/images/case-studies/apex-manufacturing-gallery-1.jpg",
+      "/images/case-studies/apex-manufacturing-gallery-2.jpg",
     ],
     metrics: [
       {
@@ -71,12 +71,12 @@ export const caseStudies: CaseStudy[] = [
       "Wire scoring before you celebrate traffic growth.",
     ],
     pillars: ["strategy", "digital-experiences", "business-automation", "growth-enablement"],
-    hero: "/images/home/phase-d-photo-04-case-proof.png",
-    heroAlt: "Team reviewing printed case materials and outcome notes",
+    hero: "/images/case-studies/parcel-tech-site-hero.jpg",
+    heroAlt:
+      "Buyer journey map and demo qualification materials on an editorial strategy desk",
     gallery: [
-      "/images/projects/parcel-tech/gallery-1.jpg",
-      "/images/projects/parcel-tech/gallery-2.jpg",
-      "/images/projects/parcel-tech/gallery-3.jpg",
+      "/images/case-studies/parcel-tech-site-gallery-1.jpg",
+      "/images/case-studies/parcel-tech-site-gallery-2.jpg",
     ],
     metrics: [
       {
@@ -109,12 +109,12 @@ export const caseStudies: CaseStudy[] = [
       "Guidelines only work when the team can apply them in under a minute.",
     ],
     pillars: ["strategy", "digital-experiences", "growth-enablement"],
-    hero: "/images/projects/ledgerly/hero.jpg",
-    heroAlt: "Ledgerly brand system applied across print and digital surfaces",
+    hero: "/images/case-studies/ledgerly-rebrand-hero.jpg",
+    heroAlt:
+      "Positioning framework and restrained brand materials on a soft silver desk",
     gallery: [
-      "/images/projects/ledgerly/gallery-1.jpg",
-      "/images/projects/ledgerly/gallery-2.jpg",
-      "/images/projects/ledgerly/gallery-3.jpg",
+      "/images/case-studies/ledgerly-rebrand-gallery-1.jpg",
+      "/images/case-studies/ledgerly-rebrand-gallery-2.jpg",
     ],
     featured: true,
   },
@@ -140,12 +140,12 @@ export const caseStudies: CaseStudy[] = [
       "Activation is a better north star than trial signups alone.",
     ],
     pillars: ["strategy", "digital-experiences", "business-automation"],
-    hero: "/images/projects/northpeak/hero.jpg",
-    heroAlt: "Northpeak learning platform interface exploration",
+    hero: "/images/case-studies/northpeak-education-hero.jpg",
+    heroAlt:
+      "Wireframes and a product prototype arranged for pitch-to-product alignment",
     gallery: [
-      "/images/projects/northpeak/gallery-1.jpg",
-      "/images/projects/northpeak/gallery-2.jpg",
-      "/images/projects/northpeak/gallery-3.jpg",
+      "/images/case-studies/northpeak-education-gallery-1.jpg",
+      "/images/case-studies/northpeak-education-gallery-2.jpg",
     ],
     featured: true,
   },

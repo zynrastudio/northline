@@ -34,7 +34,7 @@ export default function ProcessPage() {
         showCtas
       />
 
-      <section className="bg-surface pb-4 sm:pb-8">
+      <section className="bg-surface pt-20 pb-4 sm:pt-24 sm:pb-8">
         <Container>
           <Reveal>
             <DoubleBezel>

@@ -6,7 +6,13 @@ import {
   type ReactNode,
 } from "react";
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "tertiary";
+type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "ghost"
+  | "tertiary"
+  /** White fill + brand text — for CTAs sitting on `bg-brand` surfaces */
+  | "inverse";
 type ButtonSize = "md" | "sm";
 
 const variantClasses: Record<ButtonVariant, string> = {
@@ -18,6 +24,16 @@ const variantClasses: Record<ButtonVariant, string> = {
     "border border-white/40 bg-transparent text-white hover:bg-white/10 focus-visible:outline-white",
   tertiary:
     "bg-transparent px-0 text-brand underline-offset-4 hover:underline focus-visible:outline-brand",
+  inverse:
+    "bg-white text-brand hover:bg-brand-subtle focus-visible:outline-white",
+};
+
+const arrowNestClasses: Record<ButtonVariant, string> = {
+  primary: "bg-white/15",
+  secondary: "bg-ink/5",
+  ghost: "bg-white/15",
+  tertiary: "bg-brand/10",
+  inverse: "bg-brand/10",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -77,11 +93,12 @@ export function Button({
       {withArrow ? (
         <span
           aria-hidden
-          className={
-            variant === "primary"
-              ? "flex h-7 w-7 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105"
-              : "flex h-7 w-7 items-center justify-center rounded-full bg-ink/5 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105"
-          }
+          className={[
+            "flex h-7 w-7 items-center justify-center rounded-full",
+            "transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
+            "group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105",
+            arrowNestClasses[variant],
+          ].join(" ")}
         >
           <ArrowUpRight weight="bold" className="h-3.5 w-3.5" />
         </span>

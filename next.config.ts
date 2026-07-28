@@ -15,6 +15,12 @@ const serviceToPillar: Record<string, string> = {
 };
 
 const nextConfig: NextConfig = {
+  images: {
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy:
+      "default-src 'self'; script-src 'none'; sandbox;",
+  },
   async redirects() {
     const serviceRedirects = Object.entries(serviceToPillar).map(
       ([service, pillar]) => ({

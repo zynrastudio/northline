@@ -1,7 +1,10 @@
+import { isValidPhoneNumber } from "libphonenumber-js";
+
 export type ConsultationPayload = {
   // Step 1 - essentials
   name: string;
   email: string;
+  /** E.164 when provided (e.g. +14155552671); empty when skipped */
   phone: string;
   company: string;
   // Step 2 - context
@@ -107,9 +110,9 @@ export function validateConsultationField(
         : "Please enter a valid email address.";
     case "phone":
       if (!value) return undefined; // optional
-      return value.replace(/\D/g, "").length >= 7
+      return isValidPhoneNumber(value)
         ? undefined
-        : "Please enter a valid phone number.";
+        : "Enter a valid phone number with country code.";
     case "company":
       return value ? undefined : "Please enter your company.";
     case "industry":

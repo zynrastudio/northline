@@ -43,7 +43,7 @@ export default function BookConsultationPage() {
         description="Tell us where you are headed. We review every request and only take the call forward when we can genuinely help."
       />
 
-      <section className="pb-20 sm:pb-24">
+      <section className="py-20 sm:py-24">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
             <div>

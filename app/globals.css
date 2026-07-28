@@ -152,6 +152,74 @@ body {
   }
 }
 
+/* Industry phone input — Soft Structuralism, matches form controls */
+.PhoneInput--northline {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--border);
+  background: #fff;
+  transition:
+    border-color 0.3s var(--ease-premium),
+    box-shadow 0.3s var(--ease-premium);
+}
+
+.PhoneInput--northline:focus-within {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--brand) 30%, transparent);
+}
+
+.PhoneInput--northline.PhoneInput--error {
+  border-color: #f87171;
+}
+
+.PhoneInput--northline .PhoneInputCountry {
+  margin: 0;
+  padding: 0;
+  border-right: 1px solid var(--border);
+  align-self: stretch;
+  display: flex;
+  align-items: stretch;
+  position: relative;
+}
+
+.PhoneInput--northline .PhoneInputCountryIcon {
+  width: 1.35rem;
+  height: 1rem;
+  box-shadow: none;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.PhoneInput--northline .PhoneInputCountryIcon--border {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.PhoneInput--northline .PhoneInputCountrySelectArrow {
+  display: none;
+}
+
+.PhoneInput--northline .PhoneInputInput {
+  flex: 1;
+  min-width: 0;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--ink);
+  border-radius: 0 var(--radius-control) var(--radius-control) 0;
+}
+
+.PhoneInput--northline .PhoneInputInput::placeholder {
+  color: var(--muted);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

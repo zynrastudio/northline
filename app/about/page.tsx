@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { aboutContent, siteSettings, teamMembers } from "@/content";
+import { aboutContent, siteSettings } from "@/content";
 import { HowWeOperate } from "@/components/about/HowWeOperate";
+import { WhoYouWorkWith } from "@/components/about/WhoYouWorkWith";
 import { CtaBand } from "@/components/shared/CtaBand";
 import { Button } from "@/components/shared/Button";
 import { Container } from "@/components/shared/Container";
 import { Reveal } from "@/components/shared/Reveal";
-import { Section, SectionHeading } from "@/components/shared/SectionHeading";
-import { TeamMemberCard } from "@/components/shared/TeamMemberCard";
+import { Section } from "@/components/shared/SectionHeading";
 import { cta } from "@/lib/nav";
 import { buildMetadata } from "@/lib/seo";
 
@@ -77,17 +77,7 @@ export default function AboutPage() {
 
       <HowWeOperate />
 
-      <Section>
-        <SectionHeading
-          title="Who you work with"
-          description="Operators and strategists who stay accountable from diagnosis through growth."
-        />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {teamMembers.map((member) => (
-            <TeamMemberCard key={member.id} member={member} />
-          ))}
-        </div>
-      </Section>
+      <WhoYouWorkWith />
 
       <CtaBand
         title={`Consider ${siteSettings.companyName} for the next phase.`}

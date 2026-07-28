@@ -54,8 +54,13 @@ export type TeamMember = {
   id: string;
   name: string;
   role: string;
+  /** One-line specialty shown under the role */
+  focus: string;
   bio: string;
   photo: string;
+  linkedin: string;
+  /** X / Twitter profile — omit when not genuinely used */
+  x?: string;
 };
 
 export type Testimonial = {
@@ -139,9 +144,17 @@ export type SolutionPillar = {
 export type IndustryPage = {
   slug: IndustrySlug;
   name: string;
+  /** Short line under the name on index / hero */
+  tagline: string;
   understanding: string;
+  /** How Northline typically engages in this sector */
+  approach: string;
+  /** What a serious buyer should feel after the first screen */
+  buyerPromise: string;
   challenges: string[];
   tailoredSolutions: { pillar: PillarSlug; note: string }[];
+  /** Soft Structuralism line icon */
+  icon: string;
   relatedProjectSlugs: string[];
 };
 

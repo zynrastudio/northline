@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+  <!-- Soft Structuralism: precision / plant discipline -->
+  <rect x="20" y="48" width="80" height="40" rx="4" stroke="#14161a" stroke-width="1.5"/>
+  <path d="M32 48V34h16v14M72 48V28h16v20" stroke="#1a5f6b" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M20 68h80M44 48v40M76 48v40" stroke="#14161a" stroke-width="1.25" opacity="0.4"/>
+  <circle cx="36" cy="78" r="4" stroke="#1a5f6b" stroke-width="1.25"/>
+  <circle cx="60" cy="78" r="4" stroke="#1a5f6b" stroke-width="1.25"/>
+  <circle cx="84" cy="78" r="4" stroke="#1a5f6b" stroke-width="1.25"/>
+  <path d="M28 96h64" stroke="#14161a" stroke-width="1.25" stroke-linecap="round" opacity="0.35"/>
+</svg>
