@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowUpRight } from "@phosphor-icons/react";
+import { motion, useReducedMotion } from "motion/react";
 import {
   type AnchorHTMLAttributes,
   type ButtonHTMLAttributes,
@@ -50,15 +53,29 @@ type CommonProps = {
   withArrow?: boolean;
 };
 
+type MotionDomConflict =
+  | "onDrag"
+  | "onDragStart"
+  | "onDragEnd"
+  | "onAnimationStart"
+  | "onAnimationEnd"
+  | "onAnimationIteration";
+
 type ButtonAsButton = CommonProps &
-  ButtonHTMLAttributes<HTMLButtonElement> & {
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, MotionDomConflict> & {
     href?: undefined;
   };
 
 type ButtonAsLink = CommonProps &
-  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
+  Omit<
+    AnchorHTMLAttributes<HTMLAnchorElement>,
+    "href" | MotionDomConflict
+  > & {
     href: string;
   };
+
+const MotionLink = motion.create(Link);
+const MotionButton = motion.button;
 
 export function Button({
   children,
@@ -68,6 +85,7 @@ export function Button({
   withArrow = false,
   ...props
 }: ButtonAsButton | ButtonAsLink) {
+  const reduceMotion = useReducedMotion();
   const isTertiary = variant === "tertiary";
   const radius = isTertiary
     ? "rounded-sm"
@@ -75,9 +93,9 @@ export function Button({
 
   const classes = [
     "group inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap",
-    "transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
+    "transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
     "focus-visible:outline-2 focus-visible:outline-offset-2",
-    "active:scale-[0.98] disabled:opacity-60",
+    "disabled:opacity-60",
     radius,
     variantClasses[variant],
     isTertiary ? "" : sizeClasses[size],
@@ -86,6 +104,8 @@ export function Button({
   ]
     .filter(Boolean)
     .join(" ");
+
+  const tap = reduceMotion ? undefined : { scale: 0.97 };
 
   const content = (
     <>
@@ -109,20 +129,28 @@ export function Button({
   if ("href" in props && props.href) {
     const { href, ...rest } = props;
     return (
-      <Link href={href} className={classes} {...rest}>
+      <MotionLink
+        href={href}
+        className={classes}
+        whileTap={tap}
+        transition={{ type: "spring", stiffness: 500, damping: 32 }}
+        {...rest}
+      >
         {content}
-      </Link>
+      </MotionLink>
     );
   }
 
   const buttonProps = props as ButtonAsButton;
   return (
-    <button
+    <MotionButton
       type={buttonProps.type ?? "button"}
       className={classes}
+      whileTap={tap}
+      transition={{ type: "spring", stiffness: 500, damping: 32 }}
       {...buttonProps}
     >
       {content}
-    </button>
+    </MotionButton>
   );
 }

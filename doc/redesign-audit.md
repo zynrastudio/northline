@@ -113,7 +113,7 @@ Tokens and CTA labels changed; **layout, IA, schemas, and most copy** remain the
 | Buyer IA (Solutions, Industries, Case Studies, Process, Insights, Book Consultation) | D |
 | Industry pages | D |
 | Qualification form fields | F |
-| Lead scoring + CRM + calendar branch | G |
+| Lead scoring + Docker n8n + calendar branch | G — [automation-analytics.md](./automation-analytics.md) |
 | Outcome-led case studies | E |
 | Privacy / terms links | C/H |
 | Custom 404 | H |
@@ -135,15 +135,15 @@ Matches redesign-existing-projects + implementation plan. **Phase B does not exe
 
 | # | Upgrade | Phase | Status |
 | ---: | --- | --- | --- |
-| 1 | Font swap → brandkit type | A → C polish | A done; apply display scale in C |
-| 2 | Color palette cleanup | A → C sweep | A done; remove blue leftovers in C |
-| 3 | Hover / active / focus states | C | Pending |
-| 4 | Layout & spacing rhythm | C–D | Pending |
-| 5 | Replace generic components | C–E | Pending |
-| 6 | Loading / empty / error (consultation) | F | Pending |
-| 7 | Typography scale polish | C / H | Pending |
+| 1 | Font swap → brandkit type | A → C polish | **Closed** — Outfit + DM Sans in `app/layout.tsx`; `--font-outfit` on display headings sitewide |
+| 2 | Color palette cleanup | A → C sweep | **Closed** — brand tokens; `CtaBand` brand wash (no `blue-*`) |
+| 3 | Hover / active / focus states | C | **Closed** — Button spring + `whileTap`; focus-visible rings; premium cubic-bezier |
+| 4 | Layout & spacing rhythm | C–D | **Closed** — full-bleed `HomeHero`; asymmetric `HomePillars`; buyer IA pages |
+| 5 | Replace generic components | C–E | **Closed** (live) — Home* after comps on `/`; legacy brochure cards only on redirected routes |
+| 6 | Loading / empty / error (consultation) | F | **Closed** — pending label, disabled submit, `role="alert"`, DoubleBezel success |
+| 7 | Typography scale polish | C / H | **Closed** — display scale + H.2 eyebrow pass on `/` |
 
-**Do not start Phase C UI work until this audit is accepted** (exit gate B.5).
+**H.3 (2026-07-28):** Fix-priority items 1–7 confirmed closed on the live after site.
 
 ---
 
@@ -160,7 +160,7 @@ Matches redesign-existing-projects + implementation plan. **Phase B does not exe
 | A11y foundations listed above | Expand to island nav, multi-step form, motion |
 | `Container`, `Button` primitive ideas | Island nav, button-in-button, secondary CTA labels |
 | Project/blog seed *topics* as raw material | Rewrite into narrative case studies / strategic insights |
-| Env pattern (`.env.example`) | Add CRM / calendar / scoring vars in G |
+| Env pattern (`.env.example`) | Add n8n webhook / calendar / scoring vars in G — see [automation-analytics.md](./automation-analytics.md) |
 
 **Never change silently without explicit approval:** production `before` branch/URL, legal copy once written, analytics event *names* once dashboards depend on them (version carefully).
 
@@ -252,12 +252,12 @@ Keep old files readable during migration (adapter helpers) or rename with a sing
 | Strategy metric | Current | Needed |
 | --- | --- | --- |
 | Consultation requests | `generate_lead` on simple form | Keep event; add `consultation_start`, `consultation_step_complete`, `consultation_submit` |
-| % qualified leads | None | Server score + CRM stage; GA `lead_qualified` / `lead_nurture` |
+| % qualified leads | None | Server score + n8n opportunity band; GA `lead_qualified` / `lead_nurture` |
 | Case study engagement | Pageviews only | Engagement time / scroll on `/case-studies/*` |
 | Strategic content engagement | Blog pageviews | Same for `/insights/*` |
 | Manual qualification reduction | None | Ops: auto-route rate to calendar vs human review |
 | Booking completion | None | `calendar_booking_complete` (Phase G) |
-| Sales alignment | None | CRM notes / win-loss (ops, not web-only) |
+| Sales alignment | None | n8n opportunity notes / win-loss (ops, not web-only) |
 
 Do not rename `generate_lead` without updating any existing GA reports; prefer additive events.
 

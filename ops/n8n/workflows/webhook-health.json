@@ -1,0 +1,47 @@
+{
+  "name": "Northline - Webhook Health",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "northline-health",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "wh-health-1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "northline-health"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, service: \"northline-n8n\", source: \"health\" } }}",
+        "options": {}
+      },
+      "id": "wh-health-2",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [280, 0]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

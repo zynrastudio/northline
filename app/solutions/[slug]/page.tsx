@@ -220,7 +220,7 @@ export default async function SolutionPillarPage({ params }: Props) {
                 The rest of the system
               </h2>
               <p className="mt-3 max-w-[42ch] text-base leading-relaxed text-steel">
-                Pillars are numbered for sequence — not silos. Each one
+                Pillars are numbered for sequence, not silos. Each one
                 strengthens the others.
               </p>
             </Reveal>

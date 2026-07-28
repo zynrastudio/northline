@@ -11,7 +11,7 @@ export function BlogCard({ post }: BlogCardProps) {
   return (
     <Link
       href={`/insights/${post.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-border bg-white transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+      className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-border bg-white transition-colors hover:border-brand/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
     >
       <ContentImage
         src={post.cover}

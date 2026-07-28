@@ -70,7 +70,7 @@ export function HomeInsights() {
                   <span className="sm:col-span-1 sm:justify-self-end">
                     <ArrowRight
                       weight="bold"
-                      className="h-4 w-4 text-brand transition-transform duration-300 group-hover:translate-x-0.5"
+                      className="h-4 w-4 text-brand transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5"
                     />
                   </span>
                 </Link>

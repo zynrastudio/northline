@@ -36,7 +36,7 @@ export function HowWeOperate() {
                   </span>
                   <span
                     aria-hidden
-                    className="mt-4 h-px w-10 bg-border transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:w-16 group-hover:bg-brand"
+                    className="mt-4 h-px w-16 origin-left scale-x-[0.625] bg-border transition-[transform,background-color] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-x-100 group-hover:bg-brand"
                   />
                 </div>
 

@@ -129,7 +129,7 @@ function PillarFeature({
           {linkLabels[slug]}
           <ArrowRight
             weight="bold"
-            className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+            className="h-3.5 w-3.5 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5"
           />
         </span>
       </div>
@@ -166,7 +166,7 @@ function PillarPanel({
         {linkLabels[slug]}
         <ArrowRight
           weight="bold"
-          className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+          className="h-3.5 w-3.5 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5"
         />
       </span>
     </Link>

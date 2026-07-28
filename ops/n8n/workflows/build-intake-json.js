@@ -1,0 +1,702 @@
+const fs = require("fs");
+
+const COMPANY = "Rhm6rNjt7GT2F7g1";
+const CONTACT = "ay3E5aVYUurolb8y";
+const OPP = "jPKnJggH8y3h2BYo";
+const SECRET = "northline-g2-dev-secret";
+
+const nodes = [
+  {
+    id: "sticky-g2",
+    name: "Sticky Note",
+    type: "n8n-nodes-base.stickyNote",
+    typeVersion: 1,
+    position: [1008, 256],
+    parameters: {
+      content:
+        "Mode A: records + branch status here; prospect confirm stays on Next.js Resend (wire later). Internal notify is a stub until Resend. Marketing domain pending: northlinecreative.online. Header: X-Northline-Webhook-Secret.",
+    },
+  },
+  {
+    id: "wh-intake",
+    name: "Consultation Webhook",
+    type: "n8n-nodes-base.webhook",
+    typeVersion: 2.1,
+    position: [0, 96],
+    webhookId: "consultation-intake",
+    parameters: {
+      httpMethod: "POST",
+      path: "consultation-intake",
+      responseMode: "responseNode",
+      options: {},
+    },
+  },
+  {
+    id: "if-secret",
+    name: "Secret Valid?",
+    type: "n8n-nodes-base.if",
+    typeVersion: 2.3,
+    position: [224, 96],
+    parameters: {
+      conditions: {
+        combinator: "and",
+        options: {
+          caseSensitive: true,
+          leftValue: "",
+          typeValidation: "strict",
+          version: 2,
+        },
+        conditions: [
+          {
+            id: "secret-check",
+            leftValue: "={{ $json.headers['x-northline-webhook-secret'] }}",
+            rightValue: SECRET,
+            operator: { type: "string", operation: "equals" },
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: "normalize",
+    name: "Normalize Payload",
+    type: "n8n-nodes-base.set",
+    typeVersion: 3.5,
+    position: [448, 0],
+    parameters: {
+      mode: "manual",
+      includeOtherFields: false,
+      assignments: {
+        assignments: [
+          {
+            id: "a1",
+            name: "source",
+            value: "={{ $json.body.source || 'northline-after' }}",
+            type: "string",
+          },
+          {
+            id: "a2",
+            name: "submittedAt",
+            value: "={{ $json.body.submittedAt || $now.toISO() }}",
+            type: "string",
+          },
+          {
+            id: "a3",
+            name: "score",
+            value: "={{ Number($json.body.score) || 0 }}",
+            type: "number",
+          },
+          {
+            id: "a4",
+            name: "band",
+            value: "={{ $json.body.band || 'low' }}",
+            type: "string",
+          },
+          {
+            id: "a5",
+            name: "contactName",
+            value: "={{ $json.body.contact.name }}",
+            type: "string",
+          },
+          {
+            id: "a6",
+            name: "contactEmail",
+            value: "={{ $json.body.contact.email }}",
+            type: "string",
+          },
+          {
+            id: "a7",
+            name: "contactPhone",
+            value: "={{ $json.body.contact.phone || '' }}",
+            type: "string",
+          },
+          {
+            id: "a8",
+            name: "companyName",
+            value: "={{ $json.body.contact.company }}",
+            type: "string",
+          },
+          {
+            id: "a9",
+            name: "industry",
+            value: "={{ $json.body.qualification.industry }}",
+            type: "string",
+          },
+          {
+            id: "a10",
+            name: "decisionMaker",
+            value: "={{ $json.body.qualification.decisionMaker }}",
+            type: "string",
+          },
+          {
+            id: "a11",
+            name: "challenges",
+            value: "={{ $json.body.qualification.challenges }}",
+            type: "string",
+          },
+          {
+            id: "a12",
+            name: "budget",
+            value: "={{ $json.body.qualification.budget }}",
+            type: "string",
+          },
+          {
+            id: "a13",
+            name: "timeline",
+            value: "={{ $json.body.qualification.timeline }}",
+            type: "string",
+          },
+          {
+            id: "a14",
+            name: "scope",
+            value: "={{ $json.body.qualification.scope }}",
+            type: "string",
+          },
+          {
+            id: "a15",
+            name: "goals",
+            value: "={{ $json.body.qualification.goals }}",
+            type: "string",
+          },
+          {
+            id: "a16",
+            name: "automationStatus",
+            value:
+              "={{ $json.body.band === 'qualified' ? 'calendar_offered' : 'resources_sent' }}",
+            type: "string",
+          },
+          {
+            id: "a17",
+            name: "salesNotes",
+            value:
+              "G2 notify stub - Resend internal ping deferred (Mode A). Domain pending: northlinecreative.online",
+            type: "string",
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: "upsert-company",
+    name: "Upsert Company",
+    type: "n8n-nodes-base.dataTable",
+    typeVersion: 1.1,
+    position: [672, 0],
+    parameters: {
+      resource: "row",
+      operation: "upsert",
+      dataTableId: {
+        __rl: true,
+        mode: "id",
+        value: COMPANY,
+        cachedResultName: "Company",
+      },
+      matchType: "allConditions",
+      filters: {
+        conditions: [
+          {
+            keyName: "name",
+            condition: "eq",
+            keyValue: "={{ $json.companyName }}",
+          },
+        ],
+      },
+      columns: {
+        mappingMode: "defineBelow",
+        matchingColumns: ["name"],
+        value: {
+          name: "={{ $json.companyName }}",
+          industry: "={{ $json.industry }}",
+        },
+        schema: [
+          {
+            id: "name",
+            displayName: "name",
+            required: false,
+            defaultMatch: true,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "industry",
+            displayName: "industry",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: "prep-contact",
+    name: "Prepare Contact",
+    type: "n8n-nodes-base.set",
+    typeVersion: 3.5,
+    position: [896, 0],
+    parameters: {
+      mode: "manual",
+      includeOtherFields: false,
+      assignments: {
+        assignments: [
+          {
+            id: "c1",
+            name: "companyId",
+            value: "={{ String($json.id) }}",
+            type: "string",
+          },
+          {
+            id: "c2",
+            name: "contactName",
+            value: "={{ $('Normalize Payload').item.json.contactName }}",
+            type: "string",
+          },
+          {
+            id: "c3",
+            name: "contactEmail",
+            value: "={{ $('Normalize Payload').item.json.contactEmail }}",
+            type: "string",
+          },
+          {
+            id: "c4",
+            name: "contactPhone",
+            value: "={{ $('Normalize Payload').item.json.contactPhone }}",
+            type: "string",
+          },
+          {
+            id: "c5",
+            name: "decisionMaker",
+            value: "={{ $('Normalize Payload').item.json.decisionMaker }}",
+            type: "string",
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: "upsert-contact",
+    name: "Upsert Contact",
+    type: "n8n-nodes-base.dataTable",
+    typeVersion: 1.1,
+    position: [1120, 0],
+    parameters: {
+      resource: "row",
+      operation: "upsert",
+      dataTableId: {
+        __rl: true,
+        mode: "id",
+        value: CONTACT,
+        cachedResultName: "Contact",
+      },
+      matchType: "allConditions",
+      filters: {
+        conditions: [
+          {
+            keyName: "email",
+            condition: "eq",
+            keyValue: "={{ $json.contactEmail }}",
+          },
+        ],
+      },
+      columns: {
+        mappingMode: "defineBelow",
+        matchingColumns: ["email"],
+        value: {
+          companyId: "={{ $json.companyId }}",
+          name: "={{ $json.contactName }}",
+          email: "={{ $json.contactEmail }}",
+          phone: "={{ $json.contactPhone }}",
+          decisionMaker: "={{ $json.decisionMaker }}",
+        },
+        schema: [
+          {
+            id: "companyId",
+            displayName: "companyId",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "name",
+            displayName: "name",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "email",
+            displayName: "email",
+            required: false,
+            defaultMatch: true,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "phone",
+            displayName: "phone",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "decisionMaker",
+            displayName: "decisionMaker",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: "prep-opp",
+    name: "Prepare Opportunity",
+    type: "n8n-nodes-base.set",
+    typeVersion: 3.5,
+    position: [1344, 0],
+    parameters: {
+      mode: "manual",
+      includeOtherFields: false,
+      assignments: {
+        assignments: [
+          {
+            id: "o1",
+            name: "companyId",
+            value: "={{ $('Prepare Contact').item.json.companyId }}",
+            type: "string",
+          },
+          {
+            id: "o2",
+            name: "contactId",
+            value: "={{ String($json.id) }}",
+            type: "string",
+          },
+          {
+            id: "o3",
+            name: "leadScore",
+            value: "={{ $('Normalize Payload').item.json.score }}",
+            type: "number",
+          },
+          {
+            id: "o4",
+            name: "band",
+            value: "={{ $('Normalize Payload').item.json.band }}",
+            type: "string",
+          },
+          {
+            id: "o5",
+            name: "scope",
+            value: "={{ $('Normalize Payload').item.json.scope }}",
+            type: "string",
+          },
+          {
+            id: "o6",
+            name: "budget",
+            value: "={{ $('Normalize Payload').item.json.budget }}",
+            type: "string",
+          },
+          {
+            id: "o7",
+            name: "timeline",
+            value: "={{ $('Normalize Payload').item.json.timeline }}",
+            type: "string",
+          },
+          {
+            id: "o8",
+            name: "goals",
+            value: "={{ $('Normalize Payload').item.json.goals }}",
+            type: "string",
+          },
+          {
+            id: "o9",
+            name: "challenges",
+            value: "={{ $('Normalize Payload').item.json.challenges }}",
+            type: "string",
+          },
+          {
+            id: "o10",
+            name: "salesNotes",
+            value: "={{ $('Normalize Payload').item.json.salesNotes }}",
+            type: "string",
+          },
+          {
+            id: "o11",
+            name: "automationStatus",
+            value: "={{ $('Normalize Payload').item.json.automationStatus }}",
+            type: "string",
+          },
+          { id: "o12", name: "winLoss", value: "open", type: "string" },
+        ],
+      },
+    },
+  },
+  {
+    id: "insert-opp",
+    name: "Insert Opportunity",
+    type: "n8n-nodes-base.dataTable",
+    typeVersion: 1.1,
+    position: [1568, 0],
+    parameters: {
+      resource: "row",
+      operation: "insert",
+      dataTableId: {
+        __rl: true,
+        mode: "id",
+        value: OPP,
+        cachedResultName: "Opportunity",
+      },
+      columns: {
+        mappingMode: "defineBelow",
+        value: {
+          companyId: "={{ $json.companyId }}",
+          contactId: "={{ $json.contactId }}",
+          leadScore: "={{ $json.leadScore }}",
+          band: "={{ $json.band }}",
+          scope: "={{ $json.scope }}",
+          budget: "={{ $json.budget }}",
+          timeline: "={{ $json.timeline }}",
+          goals: "={{ $json.goals }}",
+          challenges: "={{ $json.challenges }}",
+          salesNotes: "={{ $json.salesNotes }}",
+          automationStatus: "={{ $json.automationStatus }}",
+          winLoss: "={{ $json.winLoss }}",
+        },
+        schema: [
+          {
+            id: "companyId",
+            displayName: "companyId",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "contactId",
+            displayName: "contactId",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "leadScore",
+            displayName: "leadScore",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "number",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "band",
+            displayName: "band",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "scope",
+            displayName: "scope",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "budget",
+            displayName: "budget",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "timeline",
+            displayName: "timeline",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "goals",
+            displayName: "goals",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "challenges",
+            displayName: "challenges",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "salesNotes",
+            displayName: "salesNotes",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "automationStatus",
+            displayName: "automationStatus",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+          {
+            id: "winLoss",
+            displayName: "winLoss",
+            required: false,
+            defaultMatch: false,
+            display: true,
+            type: "string",
+            canBeUsedToMatch: true,
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: "notify-stub",
+    name: "Internal Notify Stub",
+    type: "n8n-nodes-base.set",
+    typeVersion: 3.5,
+    position: [1792, 0],
+    parameters: {
+      mode: "manual",
+      includeOtherFields: true,
+      assignments: {
+        assignments: [
+          {
+            id: "n1",
+            name: "notifyStatus",
+            value: "stubbed_pending_resend",
+            type: "string",
+          },
+          {
+            id: "n2",
+            name: "opportunityId",
+            value: "={{ String($json.id) }}",
+            type: "string",
+          },
+          {
+            id: "n3",
+            name: "band",
+            value: "={{ $('Normalize Payload').item.json.band }}",
+            type: "string",
+          },
+          {
+            id: "n4",
+            name: "score",
+            value: "={{ $('Normalize Payload').item.json.score }}",
+            type: "number",
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: "respond-ok",
+    name: "Respond OK",
+    type: "n8n-nodes-base.respondToWebhook",
+    typeVersion: 1.5,
+    position: [2016, 0],
+    parameters: {
+      respondWith: "json",
+      responseBody:
+        "={{ { ok: true, band: $json.band, score: $json.score, opportunityId: $json.opportunityId, notifyStatus: $json.notifyStatus } }}",
+      options: { responseCode: 200 },
+    },
+  },
+  {
+    id: "reject",
+    name: "Reject Unauthorized",
+    type: "n8n-nodes-base.respondToWebhook",
+    typeVersion: 1.5,
+    position: [448, 192],
+    parameters: {
+      respondWith: "json",
+      responseBody: '={{ { ok: false, error: "unauthorized" } }}',
+      options: { responseCode: 401 },
+    },
+  },
+];
+
+const connections = {
+  "Consultation Webhook": {
+    main: [[{ node: "Secret Valid?", type: "main", index: 0 }]],
+  },
+  "Secret Valid?": {
+    main: [
+      [{ node: "Normalize Payload", type: "main", index: 0 }],
+      [{ node: "Reject Unauthorized", type: "main", index: 0 }],
+    ],
+  },
+  "Normalize Payload": {
+    main: [[{ node: "Upsert Company", type: "main", index: 0 }]],
+  },
+  "Upsert Company": {
+    main: [[{ node: "Prepare Contact", type: "main", index: 0 }]],
+  },
+  "Prepare Contact": {
+    main: [[{ node: "Upsert Contact", type: "main", index: 0 }]],
+  },
+  "Upsert Contact": {
+    main: [[{ node: "Prepare Opportunity", type: "main", index: 0 }]],
+  },
+  "Prepare Opportunity": {
+    main: [[{ node: "Insert Opportunity", type: "main", index: 0 }]],
+  },
+  "Insert Opportunity": {
+    main: [[{ node: "Internal Notify Stub", type: "main", index: 0 }]],
+  },
+  "Internal Notify Stub": {
+    main: [[{ node: "Respond OK", type: "main", index: 0 }]],
+  },
+};
+
+const workflow = {
+  name: "Northline - Consultation Intake",
+  description:
+    "Consultation intake webhook: upsert Company/Contact, insert Opportunity, Mode A notify stub. Resend deferred.",
+  nodes,
+  connections,
+  settings: { executionOrder: "v1" },
+};
+
+fs.writeFileSync(
+  "ops/n8n/workflows/consultation-intake.json",
+  JSON.stringify(workflow, null, 2),
+);
+console.log("wrote consultation-intake.json");

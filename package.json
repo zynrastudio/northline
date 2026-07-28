@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "n8n": "n8n-cli",
+    "test:lead-scoring": "tsx scripts/verify-lead-scoring.ts",
+    "test:n8n-payload": "tsx scripts/verify-n8n-payload.ts",
+    "test:consultation-branch": "tsx scripts/verify-consultation-branch.ts",
+    "test:g5-analytics": "tsx scripts/verify-g5-analytics.ts"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
@@ -19,6 +24,7 @@
     "resend": "^6.18.0"
   },
   "devDependencies": {
+    "@n8n/cli": "^0.12.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -27,6 +33,7 @@
     "eslint-config-next": "16.2.11",
     "sharp": "^0.35.3",
     "tailwindcss": "^4",
+    "tsx": "^4.23.1",
     "typescript": "^5"
   }
 }

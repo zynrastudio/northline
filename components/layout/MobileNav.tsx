@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { cta, primaryNav } from "@/lib/nav";
 import { Button } from "@/components/shared/Button";
@@ -11,11 +11,16 @@ type MobileNavProps = {
   companyName: string;
 };
 
+const FOCUSABLE =
+  'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 export function MobileNav({ companyName }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const panelId = useId();
   const pathname = usePathname();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -28,8 +33,37 @@ export function MobileNav({ companyName }: MobileNavProps) {
   useEffect(() => {
     if (!open) return;
 
+    const panel = panelRef.current;
+    const getFocusable = () =>
+      panel
+        ? Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE))
+        : [];
+
+    requestAnimationFrame(() => {
+      getFocusable()[0]?.focus();
+    });
+
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab" || !panel) return;
+
+      const nodes = getFocusable();
+      if (nodes.length === 0) return;
+
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     document.addEventListener("keydown", onKeyDown);
@@ -38,6 +72,7 @@ export function MobileNav({ companyName }: MobileNavProps) {
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
+      menuButtonRef.current?.focus();
     };
   }, [open]);
 
@@ -45,6 +80,7 @@ export function MobileNav({ companyName }: MobileNavProps) {
     open && mounted
       ? createPortal(
           <div
+            ref={panelRef}
             id={panelId}
             className="fixed inset-0 z-[80] flex h-[100dvh] w-[100vw] max-w-[100vw] flex-col bg-surface"
             role="dialog"
@@ -120,6 +156,7 @@ export function MobileNav({ companyName }: MobileNavProps) {
   return (
     <div className="lg:hidden">
       <button
+        ref={menuButtonRef}
         type="button"
         className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 text-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink/[0.04] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
         aria-expanded={open}

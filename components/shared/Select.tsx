@@ -271,7 +271,7 @@ export function Select({
             ? [
                 "group inline-flex h-full items-center gap-1.5 rounded-l-[var(--radius-control)] px-2.5",
                 "transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
-                "hover:bg-ink/[0.03] focus-visible:outline-none",
+                "hover:bg-ink/[0.03] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
                 "disabled:cursor-not-allowed disabled:opacity-60",
               ].join(" ")
             : [

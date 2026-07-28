@@ -8,6 +8,7 @@
 - [redesign-opportunities.md](./redesign-opportunities.md) — intentional before-site gaps
 - [implementation-plan.md](./implementation-plan.md) — completed **before** build (archive / contrast reference)
 - [prd.md](./prd.md) — original before PRD (do not treat as after requirements)
+- [automation-analytics.md](./automation-analytics.md) — Phase G automation (Docker n8n) + analytics spec
 
 **Stack (preserve):** Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4  
 **Branch / deploy:** `after` branch · Vercel project `northline-after` · keep `before` / `northline-before` frozen
@@ -55,7 +56,7 @@ The redesign is not about looking better. It is about making the business easier
 | Proof | Visual portfolio | Challenge → Strategy → Execution → Outcome → Lessons |
 | CTA | Contact Us | Book Strategy Consultation (+ Explore Case Studies / See How We Work) |
 | Lead capture | Name / company / email / phone / message | Guided qualification (company, industry, budget, timeline, goals, scope, decision maker, challenges) |
-| Ops | Email only | Lead score → CRM → opportunity → notify → confirm → qualify → calendar or resources |
+| Ops | Email only | Lead score → n8n (Docker) → opportunity record → notify → confirm → qualify → calendar or resources |
 | Visual | Blue brochure, rounded cards, stock, Inter-adjacent Source Sans | Brandkit system: premium, minimal, editorial, architectural |
 | Nav | Home · Services · Portfolio · About · Blog · Contact | Home · Solutions · Industries · Case Studies · Process · Insights · About · Book Consultation |
 
@@ -67,7 +68,7 @@ The redesign is not about looking better. It is about making the business easier
 2. Create Vercel project `northline-after`; never overwrite `northline-before`.
 3. Update README “Live URLs” when the after project exists.
 4. Keep content editable under `content/`; evolve schemas rather than inventing a CMS mid-redesign unless needed.
-5. Document env additions for CRM / calendar / scoring in `.env.example` as phases land.
+5. Document env additions for n8n webhook / calendar / scoring / analytics in `.env.example` as phases land. See [automation-analytics.md](./automation-analytics.md).
 
 **Exit gate:** `after` branch builds; before production URL unchanged.
 
@@ -192,7 +193,7 @@ Apply upgrades in this order (do not skip ahead to “pretty hero”):
 | --- | --- |
 | Next.js + Tailwind stack | Visual language + tokens |
 | Local typed content pattern | Content schemas + copy voice |
-| Resend plumbing (as notification channel) | Form fields + qualification + CRM |
+| Resend plumbing (as notification channel) | Form fields + qualification + n8n automation |
 | SEO file patterns (`sitemap`, `robots`, metadata helpers) | Slugs / titles / IA labels (approve redirects) |
 | Accessibility foundations (skip link, focus, AA intent) | Expand to new forms and motion |
 
@@ -443,36 +444,45 @@ Plus essentials: name, email, phone (as needed). Multi-step UI with progress, va
 
 ---
 
-### Phase G — Automation, CRM & Analytics
+### Phase G — Automation & Analytics (n8n on Docker)
 
-**Goal:** Intelligent qualification workflow from strategy doc.
+**Goal:** Intelligent qualification workflow from strategy doc, orchestrated by **self-hosted n8n** (Docker). No SaaS CRM (HubSpot, Attio, Salesforce, etc.).
+
+**Full spec:** [automation-analytics.md](./automation-analytics.md) — architecture, Docker compose, scoring rules, GA4 events, env vars, E2E test plan.
 
 #### G.1 Workflow
 
 ```
 Submit inquiry
-  → Lead score calculated
-  → CRM: Contact + Company + Opportunity (+ score, notes, automation status)
+  → Lead score calculated (server rules)
+  → POST webhook → n8n (Docker)
+  → n8n: Contact + Company + Opportunity record
+       (+ score, notes, automation status)
   → Internal notification
   → Confirmation email (Resend)
   → Qualification decision
-       → Qualified → calendar booking
+       → Qualified → Cal.com booking
        → Not yet → resource recommendation
 ```
 
 #### G.2 Implementation notes
 
-- Prefer server-side scoring rules (budget, timeline, industry fit, decision maker) documented in `doc/lead-scoring.md`
-- CRM: choose one (HubSpot / Attio / Salesforce / etc.) and integrate via API routes; do not fake CRM UI on the marketing site
-- Calendar: Cal.com / Calendly embed or redirect after qualify
-- Keep Resend for transactional email
+- Prefer server-side scoring rules (budget, timeline, industry fit, decision maker) documented in [automation-analytics.md](./automation-analytics.md) (Lead Scoring section) — optional extract to `doc/lead-scoring.md` if rules grow large
+- **Automation host:** n8n self-hosted via **Docker Compose only** — not n8n Cloud as the production host for this case study, and **not** any commercial CRM. Opportunity / contact / company records live in n8n (Data Tables or equivalent workflow store)
+- Wire the consultation server action to an n8n webhook after score; keep Resend for transactional email (or call Resend from n8n — one source of truth, documented in the automation doc)
+- **Calendar:** **Cal.com** only (embed or redirect after qualify) — no Calendly
 - GA4: pageviews, case study engagement, consultation start / step complete / submit, booking complete
+- Build / maintain workflows via Cursor **n8n MCP** (preferred) or n8n UI; `@n8n/cli` is optional and may require a paid API
 
 #### G.3 Acceptance criteria
 
-- [ ] End-to-end test: submit → score → CRM record → email → branch path  
-- [ ] Unqualified path receives resources, not a dead end  
-- [ ] Secrets only in env; no live keys in repo  
+- [x] n8n running via Docker Compose; webhook reachable from the after app (staging) — local + Railway G0
+- [x] End-to-end test: submit → score → n8n record → email → branch path (G1–G4; see [automation-analytics.md](./automation-analytics.md))
+- [x] Qualified path offers **Cal.com**; unqualified path receives resources, not a dead end (G4)
+- [x] Secrets only in env; no live keys in repo
+- [x] No HubSpot / Attio / Salesforce (or other SaaS CRM) in the stack
+- [x] No Calendly (or other scheduler) — Cal.com only
+- [x] Operator runbook + backup + n8n-down fallback — [ops/n8n/RUNBOOK.md](../ops/n8n/RUNBOOK.md) (G6)
 
 ---
 
@@ -480,50 +490,68 @@ Submit inquiry
 
 **Goal:** Ship agency-tier craft without strategy regression.
 
-#### H.1 Motion budget (motivated only)
+#### H.1 Motion budget (motivated only) — **done**
 
-Ship at least 2–3 intentional motions, e.g.:
+Shipped 3 intentional motions (Motion + `prefers-reduced-motion`):
 
-1. Hero / nav entry (hierarchy)  
-2. Scroll reveal on pillars or case studies (storytelling)  
-3. CTA hover / press physics (feedback)  
+1. [x] Hero entry — staggered brand → headline → support → CTAs ([`HomeHeroIntro`](../components/home/HomeHeroIntro.tsx))
+2. [x] Island nav entry — header bar fade/slide on mount ([`Header`](../components/layout/Header.tsx))
+3. [x] CTA press physics — `whileTap` scale on [`Button`](../components/shared/Button.tsx)
 
-Optional one GSAP sticky-stack or horizontal pan **if** it serves proof storytelling — follow taste skill canonical skeletons (`start: "top top"`, cleanup, reduced motion).
+Scroll reveals on pillars / proof already via [`Reveal`](../components/shared/Reveal.tsx). GSAP sticky-stack deferred (not required for B2B calm).
 
-#### H.2 design-taste-frontend Pre-Flight (mandatory)
+#### H.2 design-taste-frontend Pre-Flight (mandatory) — **done**
 
-Run Section 14 checklist before calling done. Critical fails for this project:
+Section 14 critical fails for this project (after Soft Structuralism site):
 
-- Em-dash anywhere visible  
-- Hero overflow / &gt;4 hero text elements  
-- Eyebrow spam (&gt; ceil(sections/3))  
-- 3 equal feature cards as primary pattern  
-- Mid-page theme flip  
-- Duplicate CTA intents  
-- Div fake screenshots  
-- Lucide-only / Inter default  
-- Scroll cue labels  
+| Critical fail | Outcome |
+| --- | --- |
+| Em-dash anywhere visible | **Pass** — purged from user-facing strings under `content/`, `lib/` (UI + email), `components/`, `app/` |
+| Hero overflow / &gt;4 hero text elements | **Pass** — HomeHero: brand, h1, support, CTAs |
+| Eyebrow spam (&gt; ceil(sections/3)) | **Pass** on `/` (no section eyebrows mounted) |
+| 3 equal feature cards as primary pattern | **Pass** — HomePillars asymmetric |
+| Mid-page theme flip | **Pass with note** — dark full-bleed photo hero + light body = media plane; CtaBand is a brand-washed card on a light surface, not an inverted page theme |
+| Duplicate CTA intents | **Pass** — primary label locked to `Book Strategy Consultation` |
+| Div fake screenshots | **Pass** |
+| Lucide-only / Inter default | **Pass** — Phosphor + DM Sans / Outfit |
+| Scroll cue labels | **Pass** |
 
-#### H.3 redesign-existing-projects + high-end pass
+#### H.3 redesign-existing-projects + high-end pass — **done**
 
-- Confirm fix-priority items closed  
-- Double-bezel / island nav / haptic CTAs present where appropriate  
-- No banned fonts/icons/harsh shadows from high-end Absolute Zero list  
-- Mobile: asymmetric layouts collapse to single column; `min-h-[100dvh]` not `h-screen`
+| Check | Outcome |
+| --- | --- |
+| Fix-priority items 1–7 | **Closed** — statuses updated in [`doc/redesign-audit.md`](./redesign-audit.md) §3 |
+| Double-bezel / island nav / haptic CTAs | **Pass** — island nav + Button `whileTap` retained; DoubleBezel on HomeProcess, ConsultationForm shell, book-consultation aside |
+| Absolute Zero | **Pass** — no Inter/Lucide/`h-screen`/`shadow-md` on live UI; brochure cards use border hover; premium ease on pillar/insight arrows; Submit `withArrow` |
+| Mobile / `dvh` | **Pass** — asymmetric grids collapse via base single-column; heroes use `min-h-[100dvh]` |
 
-#### H.4 Performance & a11y
+#### H.4 Performance & a11y — **done**
 
-- LCP hero via `next/image` priority  
-- Animate only `transform` / `opacity`  
-- WCAG AA; keyboard path through consultation  
-- Lighthouse sanity on home + case study + consultation  
+| Check | Outcome |
+| --- | --- |
+| LCP via `next/image` priority | **Pass** — [`HomeHero`](../components/home/HomeHero.tsx) + [`CaseStudyDetail`](../components/case-studies/CaseStudyDetail.tsx); no competing home priorities |
+| Animate only `transform` / `opacity` | **Pass** — consultation progress uses `scaleX`; HowWeOperate rule uses `scaleX` (no width animation) |
+| WCAG AA + keyboard consultation | **Pass** — `--steel`/`--muted` AA-adjusted to `#5C6370`; step `aria-live` + title focus; server-error field focus; Select inline focus ring; MobileNav focus trap + restore |
+| Lighthouse sanity (`next dev`, desktop) | **Pass** — a11y audits 19–22/22 pass (incl. color-contrast); CLS 0; LCP home ~3.9s / case ~0.8s / consult ~1.8s (home LCP inflated by local unminified JS; re-check on production in H.5) |
 
-#### H.5 Launch
+#### H.5 Launch — **done**
 
-- [ ] `northline-after` production deploy  
-- [ ] README URLs updated  
-- [ ] Case-study “before vs after” notes linked (strategy + this plan + audit)  
-- [ ] before site untouched  
+| Check | Outcome |
+| --- | --- |
+| `northline-after` production | **Live** — https://northline-after.vercel.app (Git deploy from `after`) |
+| README URLs | **Updated** — after redesign framing + before/after table |
+| Before vs after notes | **Linked** — [`doc/case-study-before-after.md`](./case-study-before-after.md) → strategy, plan, audit |
+| Before site untouched | **Confirmed** — https://northline-before.vercel.app still brochure baseline; no deploys to `northline-before` |
+| Production env | `NEXT_PUBLIC_SITE_URL`, Cal.com, n8n webhook + secret, `AUTOMATION_FALLBACK_EMAIL=true`, `GA_DEBUG=false`. Resend / GA measurement ID unset locally → Mode A email soft-logs until keys are added |
+
+Deploy commit SHA recorded at end of this section after push.
+
+#### H.5 Launch (checklist archive)
+
+- [x] `northline-after` production deploy  
+- [x] README URLs updated  
+- [x] Case-study “before vs after” notes linked (strategy + this plan + audit)  
+- [x] before site untouched  
 
 ---
 
@@ -548,12 +576,12 @@ Run Section 14 checklist before calling done. Critical fails for this project:
 | Strategy metric | How we measure |
 | --- | --- |
 | Higher consultation requests | Form starts + submits (GA + server log) |
-| Higher % qualified leads | Score threshold rate; CRM stage |
+| Higher % qualified leads | Score threshold rate; n8n opportunity status |
 | Case study engagement | Scroll depth / time on `/case-studies/*` |
 | Strategic content engagement | Insights time on page |
 | Reduced manual qualification | % auto-routed to calendar vs human review |
 | Booking completion | Calendar complete events |
-| Better sales alignment | CRM opportunity notes + win/loss tagging (ops process) |
+| Better sales alignment | Opportunity notes + win/loss tagging in n8n records (ops process) |
 
 ---
 
@@ -566,7 +594,8 @@ Run Section 14 checklist before calling done. Critical fails for this project:
 | high-end glass/purple defaults fighting brandkit | Brandkit palette is law; Soft Structuralism bias |
 | Broken SEO from IA rename | Redirect map in Phase D; verify Search Console post-launch |
 | Scope creep into client portal / calculators | Out of scope unless strategy amended |
-| CRM choice delay blocking launch | Ship qualification + email + scoring first; CRM adapter second |
+| SaaS CRM creep (HubSpot etc.) | Stack lock: Docker n8n only; see [automation-analytics.md](./automation-analytics.md) |
+| n8n Docker / webhook delay blocking launch | Ship qualification + email + scoring first; webhook adapter second |
 | Accidental edits on `before` | Branch protection; separate Vercel project |
 
 ---
@@ -581,7 +610,7 @@ Run Section 14 checklist before calling done. Critical fails for this project:
 | **D** Core pages | taste + high-end | Home, solutions, industries, process, about | Buyer IA live |
 | **E** Proof | taste | Case studies + insights | Narrative proof live |
 | **F** Conversion | taste | Qualification consultation UX | Guided inquire path |
-| **G** Automation | (ops/integrations) | Score, CRM, email, calendar branch | E2E acquisition flow |
+| **G** Automation | n8n MCP + Docker ops | Score, n8n records, email, Cal.com branch, GA4 | E2E acquisition flow |
 | **H** Polish & launch | all three design skills | Pre-flight, a11y, deploy | `northline-after` live |
 
 ---

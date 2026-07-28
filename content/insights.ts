@@ -19,7 +19,7 @@ export const insights: Insight[] = [
       "Editorial desk with a growth thesis notebook, scoring sheet, and empty calendar before a launch",
     relatedPillars: ["strategy", "growth-enablement"],
     relatedCaseStudySlugs: ["parcel-tech-site"],
-    body: `Most B2B launches fail before creative ever ships. The team confuses activity with direction. Channels get funded. Assets get produced. Nobody agrees what "better customers" means in numbers the business already watches. The launch still happens — because the calendar said so — and underperformance gets blamed on creative, media, or timing.
+    body: `Most B2B launches fail before creative ever ships. The team confuses activity with direction. Channels get funded. Assets get produced. Nobody agrees what "better customers" means in numbers the business already watches. The launch still happens, because the calendar said so, and underperformance gets blamed on creative, media, or timing.
 
 That diagnosis is usually wrong. The spend did exactly what it was asked to do: amplify an unresolved argument.
 
@@ -39,7 +39,7 @@ Forms that ask for name and email alone guarantee sales will re-qualify what mar
 
 ## Align the claim to the product
 
-If the site promises simplicity the product cannot deliver, every demo starts with repair work. Parcel Tech learned this the hard way before we rebuilt the story from site to demo. Launch messaging must survive a live walkthrough — not just a landing page scroll.
+If the site promises simplicity the product cannot deliver, every demo starts with repair work. Parcel Tech learned this the hard way before we rebuilt the story from site to demo. Launch messaging must survive a live walkthrough, not just a landing page scroll.
 
 Walk the claim with someone who runs demos. Ask where buyers push back. Those friction points belong in the narrative before launch, not as a surprise in week three.
 
@@ -47,7 +47,7 @@ Walk the claim with someone who runs demos. Ask where buyers push back. Those fr
 
 ## Measure the conversation, not the click
 
-Pick one primary metric the engagement is accountable for. Demo-to-opportunity. Quote completeness. Consultation fit rate. Traffic is a leading indicator at best. If leadership only asks about sessions, reframe the scoreboard before you spend — otherwise you will optimize for the wrong applause.
+Pick one primary metric the engagement is accountable for. Demo-to-opportunity. Quote completeness. Consultation fit rate. Traffic is a leading indicator at best. If leadership only asks about sessions, reframe the scoreboard before you spend, otherwise you will optimize for the wrong applause.
 
 ## How this shows up in an engagement
 
@@ -141,7 +141,7 @@ Diagnosis is not a workshop for its own sake. It is the work of naming what is t
 
 Positioning is a choice about who you are for and who you are not for. Ledgerly's work only mattered once partners stopped sounding like every other advisor on the page. Identity followed the decision. It did not replace it.
 
-If your positioning still tries to include every adjacent buyer, you do not have a position — you have a menu.
+If your positioning still tries to include every adjacent buyer, you do not have a position, you have a menu.
 
 > Clarity compounds when it is used to say no, not when it is used to decorate yes.
 
@@ -262,7 +262,7 @@ Content that helps an engineer and a procurement lead find different answers on 
 
 ## Match the shop floor
 
-If the plant is precise and the site is vague, trust breaks. Digital should feel as disciplined as the operation it represents — measured typography, findable specs, honest next steps.
+If the plant is precise and the site is vague, trust breaks. Digital should feel as disciplined as the operation it represents, measured typography, findable specs, honest next steps.
 
 ## How we approach industrial sites
 
@@ -293,7 +293,7 @@ A refresh done with a thesis can move pipeline without a stack migration.
 
 If the site mirrors your org chart, if conversion paths are buried, or if the stack cannot support scoring and routing, a refresh is cosplay. Rebuild around the buyer journey.
 
-New paint on a maze is still a maze — just a prettier one to get lost in.
+New paint on a maze is still a maze, just a prettier one to get lost in.
 
 > Choose rebuild when the structure cannot tell the truth. Choose refresh when the truth is already there and poorly said.
 
@@ -314,7 +314,7 @@ A prettier site that does not move pipeline is still a cost. Agree on the number
 
 ## How we run the decision
 
-In discovery we score the four questions with the client in the room. The answer determines scope — not the desire to announce a redesign. That keeps budgets honest and keeps the work pointed at acquisition, not aesthetics alone.`,
+In discovery we score the four questions with the client in the room. The answer determines scope, not the desire to announce a redesign. That keeps budgets honest and keeps the work pointed at acquisition, not aesthetics alone.`,
   },
 ];
 

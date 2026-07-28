@@ -6,7 +6,7 @@ export const solutionPillars: SolutionPillar[] = [
     title: "Strategy",
     tagline: "Decide where growth actually comes from.",
     problem:
-      "Most B2B teams have more channels, tools, and opinions than they have clarity. Effort spreads thin. The website mirrors internal structure instead of how buyers decide. Campaigns launch without a shared definition of the customer worth acquiring — so spend amplifies an unresolved argument.",
+      "Most B2B teams have more channels, tools, and opinions than they have clarity. Effort spreads thin. The website mirrors internal structure instead of how buyers decide. Campaigns launch without a shared definition of the customer worth acquiring, so spend amplifies an unresolved argument.",
     approach:
       "We start with positioning, buyer research, and a growth thesis written as a decision, not a slogan. We map how prospects move from first signal to qualified conversation, then decide what to build, what to retire, and which metric the engagement is accountable for. Clarity becomes the filter before creative or automation scales.",
     deliverables: [
@@ -28,7 +28,7 @@ export const solutionPillars: SolutionPillar[] = [
     problem:
       "A polished site that does not convert is an expensive brochure. Interfaces look modern yet leave prospects unsure what to do next. Service pages dump features. Proof is buried. CTAs compete with each other. The experience impresses stakeholders and stalls buyers.",
     approach:
-      "We design and build high-converting websites and product interfaces around the buyer journey — clear messaging, one primary path, fast performance, and accessible interaction from the first wireframe. Visual craft serves the argument. It does not replace it.",
+      "We design and build high-converting websites and product interfaces around the buyer journey, clear messaging, one primary path, fast performance, and accessible interaction from the first wireframe. Visual craft serves the argument. It does not replace it.",
     deliverables: [
       "High-converting marketing site design and build",
       "Product and interface UX for key flows",
@@ -50,7 +50,7 @@ export const solutionPillars: SolutionPillar[] = [
     title: "Business Automation",
     tagline: "Turn every inquiry into a qualified, routed opportunity.",
     problem:
-      "Leads arrive as raw form fills. Teams qualify by hand, follow up late, and lose context between the website and the CRM. Open calendars feel generous and quietly transfer sorting cost onto sales. The site already collected signal — almost nobody uses it.",
+      "Leads arrive as raw form fills. Teams qualify by hand, follow up late, and lose context between the website and the CRM. Open calendars feel generous and quietly transfer sorting cost onto sales. The site already collected signal, almost nobody uses it.",
     approach:
       "We connect the site to your CRM with lead scoring, routing, and automated follow-up so qualified prospects reach a calendar and everyone else gets useful resources. Fields earn their place only when they change the path. Sales opens a record that already knows why the person is there.",
     deliverables: [
@@ -72,7 +72,7 @@ export const solutionPillars: SolutionPillar[] = [
     problem:
       "Launch is treated as the finish line. Content, experiments, and reporting stall, so the site stops improving the month after it ships. Teams restart with a new theme every quarter instead of compounding the thesis they already paid for.",
     approach:
-      "We run ongoing content, experimentation, and reporting so the website keeps earning better customers over time — guided by the metrics set during strategy. Thought leadership, conversion tests, and quarterly reviews replace tip posts and vanity dashboards.",
+      "We run ongoing content, experimentation, and reporting so the website keeps earning better customers over time, guided by the metrics set during strategy. Thought leadership, conversion tests, and quarterly reviews replace tip posts and vanity dashboards.",
     deliverables: [
       "Editorial and thought-leadership content",
       "Conversion experiments and iteration",

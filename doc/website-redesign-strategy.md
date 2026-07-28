@@ -277,7 +277,7 @@ Resource recommendation
 
 # CRM Integration
 
-Every qualified inquiry creates:
+Fulfilled **without a SaaS CRM**. Every qualified inquiry creates the following records in **self-hosted n8n (Docker)** — see [automation-analytics.md](./automation-analytics.md):
 
 Contact
 

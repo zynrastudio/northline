@@ -27,7 +27,7 @@ export type ConsultationFieldErrors = Partial<
 >;
 
 export type ConsultationActionResult =
-  | { ok: true }
+  | { ok: true; band: "qualified" | "nurture" | "low"; score: number }
   | { ok: false; errors: ConsultationFieldErrors };
 
 export const emptyConsultation: ConsultationPayload = {

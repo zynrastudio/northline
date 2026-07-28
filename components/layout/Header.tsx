@@ -2,10 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion, useReducedMotion } from "motion/react";
 import { siteSettings } from "@/content/site";
 import { cta, primaryNav } from "@/lib/nav";
 import { Button } from "@/components/shared/Button";
 import { MobileNav } from "@/components/layout/MobileNav";
+
+const easePremium = [0.32, 0.72, 0, 1] as const;
 
 function navLinkClass(active: boolean) {
   return [
@@ -19,17 +22,21 @@ function navLinkClass(active: boolean) {
 
 export function Header() {
   const pathname = usePathname();
+  const reduceMotion = useReducedMotion();
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-[50] flex justify-center px-3 pt-4 sm:px-4 sm:pt-5">
       <div className="pointer-events-auto flex w-full max-w-[1400px] items-center justify-center">
-        <div
+        <motion.div
           className={[
             "flex h-14 w-full max-w-5xl items-center justify-between gap-3 px-2 pl-3 sm:h-16 sm:px-3",
             "rounded-[var(--radius-island)] border border-ink/8 bg-surface-elevated/80",
             "shadow-[0_18px_50px_-28px_rgba(20,22,26,0.45)] backdrop-blur-xl",
             "supports-[backdrop-filter]:bg-surface-elevated/70",
           ].join(" ")}
+          initial={reduceMotion ? false : { opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, ease: easePremium }}
         >
           <Link
             href="/"
@@ -75,7 +82,7 @@ export function Header() {
           </div>
 
           <MobileNav companyName={siteSettings.companyName} />
-        </div>
+        </motion.div>
       </div>
     </header>
   );

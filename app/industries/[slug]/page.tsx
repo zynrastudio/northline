@@ -100,7 +100,7 @@ export default async function IndustryDetailPage({ params }: Props) {
               Where it gets hard
             </h2>
             <p className="mt-3 max-w-[40ch] text-base leading-relaxed text-steel">
-              Patterns we see before the first call — the friction that keeps
+              Patterns we see before the first call, the friction that keeps
               digital from matching how this sector actually buys.
             </p>
           </Reveal>

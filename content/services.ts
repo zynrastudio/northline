@@ -87,7 +87,7 @@ export const services: Service[] = [
     shortDescription:
       "Wireframes, interface design, and prototypes that make digital products easier to use.",
     overview:
-      "We help teams shape digital product experiences through research-informed wireframes, interface design, and interactive prototypes—so stakeholders can align before development begins.",
+      "We help teams shape digital product experiences through research-informed wireframes, interface design, and interactive prototypes - so stakeholders can align before development begins.",
     benefits: [
       "User flows and wireframes",
       "High-fidelity interface design",

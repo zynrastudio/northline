@@ -3,6 +3,7 @@ import { Check } from "@phosphor-icons/react/dist/ssr";
 import { siteSettings } from "@/content";
 import { ConsultationForm } from "@/components/consultation/ConsultationForm";
 import { Container } from "@/components/shared/Container";
+import { DoubleBezel } from "@/components/shared/DoubleBezel";
 import { PageHero } from "@/components/shared/PageHero";
 import { buildMetadata } from "@/lib/seo";
 
@@ -59,60 +60,67 @@ export default function BookConsultationPage() {
               </div>
             </div>
 
-            <aside className="h-fit rounded-[var(--radius-panel)] border border-border bg-surface-muted p-6 sm:p-8">
-              <h2 className="font-[family-name:var(--font-outfit)] text-lg font-medium text-ink">
-                What happens next
-              </h2>
-              <ul className="mt-4 space-y-3">
-                {expectations.map((item) => (
-                  <li key={item} className="flex gap-3 text-sm leading-relaxed text-steel">
-                    <Check
-                      weight="bold"
-                      className="mt-0.5 h-4 w-4 shrink-0 text-brand"
-                    />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-8 border-t border-border pt-6">
-                <p className="text-sm font-medium text-ink">
-                  Want context before you commit?
-                </p>
-                <ul className="mt-4 space-y-4">
-                  {beforeYouAsk.map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        className="group block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            <aside className="h-fit">
+              <DoubleBezel tone="elevated">
+                <div className="p-6 sm:p-8">
+                  <h2 className="font-[family-name:var(--font-outfit)] text-lg font-medium text-ink">
+                    What happens next
+                  </h2>
+                  <ul className="mt-4 space-y-3">
+                    {expectations.map((item) => (
+                      <li
+                        key={item}
+                        className="flex gap-3 text-sm leading-relaxed text-steel"
                       >
-                        <span className="text-sm font-medium text-ink transition-colors group-hover:text-brand">
-                          {item.label}
-                        </span>
-                        <span className="mt-0.5 block text-sm leading-relaxed text-steel">
-                          {item.description}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                        <Check
+                          weight="bold"
+                          className="mt-0.5 h-4 w-4 shrink-0 text-brand"
+                        />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-              <div className="mt-8 border-t border-border pt-6 text-sm leading-relaxed text-steel">
-                <p className="font-medium text-ink">Prefer email?</p>
-                <a
-                  href={`mailto:${siteSettings.email}`}
-                  className="text-brand hover:text-brand-dark"
-                >
-                  {siteSettings.email}
-                </a>
-                <p className="mt-4 font-medium text-ink">Office</p>
-                <p>
-                  {address.street}
-                  <br />
-                  {address.city}, {address.region} {address.postalCode}
-                </p>
-              </div>
+                  <div className="mt-8 border-t border-border pt-6">
+                    <p className="text-sm font-medium text-ink">
+                      Want context before you commit?
+                    </p>
+                    <ul className="mt-4 space-y-4">
+                      {beforeYouAsk.map((item) => (
+                        <li key={item.href}>
+                          <Link
+                            href={item.href}
+                            className="group block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                          >
+                            <span className="text-sm font-medium text-ink transition-colors group-hover:text-brand">
+                              {item.label}
+                            </span>
+                            <span className="mt-0.5 block text-sm leading-relaxed text-steel">
+                              {item.description}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-8 border-t border-border pt-6 text-sm leading-relaxed text-steel">
+                    <p className="font-medium text-ink">Prefer email?</p>
+                    <a
+                      href={`mailto:${siteSettings.email}`}
+                      className="text-brand hover:text-brand-dark"
+                    >
+                      {siteSettings.email}
+                    </a>
+                    <p className="mt-4 font-medium text-ink">Office</p>
+                    <p>
+                      {address.street}
+                      <br />
+                      {address.city}, {address.region} {address.postalCode}
+                    </p>
+                  </div>
+                </div>
+              </DoubleBezel>
             </aside>
           </div>
         </Container>

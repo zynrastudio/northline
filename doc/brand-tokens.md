@@ -31,7 +31,7 @@ One accent. Cool gray family. Saturation kept restrained.
 | `ink` | `#14161A` | Primary text, logo fill (light surfaces) |
 | `surface` | `#F4F5F7` | Page background |
 | `surface-elevated` | `#FFFFFF` | Raised panels when needed |
-| `steel` | `#6B7280` | Secondary text, hairlines, captions |
+| `steel` | `#5C6370` | Secondary text, hairlines, captions (AA-adjusted from `#6B7280` for ≥4.5:1 on `surface`) |
 | `teal` / `brand` | `#1A5F6B` | Sole accent: CTAs, meridian lines, focus, selection |
 | `teal-deep` | `#144C56` | Hover / pressed accent |
 | `teal-subtle` | `#E6F0F2` | Soft accent wash (selection, chips) |

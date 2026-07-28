@@ -9,8 +9,19 @@ import { PhoneField } from "@/components/consultation/PhoneField";
 import { Button } from "@/components/shared/Button";
 import { DoubleBezel } from "@/components/shared/DoubleBezel";
 import { Select } from "@/components/shared/Select";
-import { trackEvent } from "@/lib/analytics";
-import { cta } from "@/lib/nav";
+import {
+  trackConsultationStart,
+  trackConsultationStepComplete,
+  trackConsultationSubmit,
+} from "@/lib/analytics";
+import {
+  buildCalComBookingUrl,
+  getCalComBaseUrl,
+  getResourceNavLinks,
+  isQualifiedBand,
+  qualifiedSuccessCopy,
+  resourcesSuccessCopy,
+} from "@/lib/consultation-branch";
 import {
   budgetOptions,
   consultationSteps,
@@ -24,17 +35,12 @@ import {
   type ConsultationFieldErrors,
   type ConsultationPayload,
 } from "@/lib/consultation";
+import { scoreBucket, type LeadBand } from "@/lib/lead-scoring";
 
 const stepMeta = [
   { title: "About you", hint: "Who we will be talking with." },
   { title: "Your situation", hint: "Where you are today." },
   { title: "The engagement", hint: "What a fit looks like." },
-] as const;
-
-const successNext = [
-  "We review fit within two business days",
-  "You get a clear yes, not yet, or a referral",
-  "If it is a fit, that reply includes a booking link",
 ] as const;
 
 const easePremium = [0.32, 0.72, 0, 1] as const;
@@ -48,19 +54,46 @@ export function ConsultationForm() {
   const [values, setValues] = useState<ConsultationPayload>(emptyConsultation);
   const [errors, setErrors] = useState<ConsultationFieldErrors>({});
   const [success, setSuccess] = useState(false);
+  const [resultBand, setResultBand] = useState<LeadBand | null>(null);
   const [pending, startTransition] = useTransition();
   const [stepReady, setStepReady] = useState(true);
   const guardTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const startedTracked = useRef(false);
+  const skipStepFocus = useRef(true);
+  const pendingErrorFocus = useRef<ConsultationFieldErrors | null>(null);
+  const stepTitleRef = useRef<HTMLParagraphElement>(null);
   const reduceMotion = useReducedMotion();
 
   const isLastStep = step === consultationSteps.length - 1;
   const progress = ((step + 1) / consultationSteps.length) * 100;
 
   useEffect(() => {
+    if (startedTracked.current) return;
+    startedTracked.current = true;
+    trackConsultationStart();
+  }, []);
+
+  useEffect(() => {
     return () => {
       if (guardTimer.current) clearTimeout(guardTimer.current);
     };
   }, []);
+
+  useEffect(() => {
+    if (pendingErrorFocus.current) {
+      const errs = pendingErrorFocus.current;
+      pendingErrorFocus.current = null;
+      focusFirstError(errs, step);
+      return;
+    }
+    if (skipStepFocus.current) {
+      skipStepFocus.current = false;
+      return;
+    }
+    stepTitleRef.current?.focus();
+    // focusFirstError is stable enough for this effect; step is the dep.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
 
   function armStepGuard() {
     setStepReady(false);
@@ -78,10 +111,12 @@ export function ConsultationForm() {
     });
   }
 
-  function focusFirstError(stepErrors: ConsultationFieldErrors) {
-    const firstField = consultationSteps[step].fields.find(
-      (field) => stepErrors[field],
-    );
+  function focusFirstError(
+    stepErrors: ConsultationFieldErrors,
+    stepIndex = step,
+  ) {
+    const fields = consultationSteps[stepIndex]?.fields ?? [];
+    const firstField = fields.find((field) => stepErrors[field]);
     if (firstField) {
       document.getElementById(`${formId}-${firstField}`)?.focus();
     }
@@ -94,6 +129,8 @@ export function ConsultationForm() {
       focusFirstError(stepErrors);
       return;
     }
+    const completedStep = (step + 1) as 1 | 2 | 3;
+    trackConsultationStepComplete(completedStep);
     setErrors({});
     armStepGuard();
     setStep((current) => Math.min(current + 1, consultationSteps.length - 1));
@@ -123,15 +160,23 @@ export function ConsultationForm() {
         const firstStepWithError = consultationSteps.findIndex((s) =>
           s.fields.some((field) => result.errors[field]),
         );
-        if (firstStepWithError >= 0) setStep(firstStepWithError);
+        const targetStep =
+          firstStepWithError >= 0 ? firstStepWithError : step;
+        if (targetStep !== step) {
+          pendingErrorFocus.current = result.errors;
+          setStep(targetStep);
+        } else {
+          focusFirstError(result.errors, targetStep);
+        }
         return;
       }
 
       setErrors({});
+      setResultBand(result.band);
       setSuccess(true);
-      trackEvent("generate_lead", {
-        method: "consultation_form",
-        form_id: "strategy_consultation",
+      trackConsultationSubmit({
+        band: result.band,
+        scoreBucket: scoreBucket(result.score),
       });
     });
   }
@@ -145,8 +190,20 @@ export function ConsultationForm() {
     submitForm();
   }
 
-  if (success) {
+  if (success && resultBand) {
     const firstName = values.name.split(" ")[0] || "there";
+    const qualified = isQualifiedBand(resultBand);
+    const bookingUrl = qualified
+      ? buildCalComBookingUrl(getCalComBaseUrl(), {
+          name: values.name,
+          email: values.email,
+        })
+      : null;
+    const resourceLinks = getResourceNavLinks();
+    const copy = qualified ? qualifiedSuccessCopy : resourcesSuccessCopy;
+    const qualifiedBullets = bookingUrl
+      ? qualifiedSuccessCopy.bulletsWithCal
+      : qualifiedSuccessCopy.bulletsWithoutCal;
 
     return (
       <motion.div
@@ -158,7 +215,7 @@ export function ConsultationForm() {
         <DoubleBezel tone="elevated">
           <div className="px-6 py-8 sm:px-8 sm:py-10">
             <p className="inline-flex items-center rounded-full bg-brand/10 px-3 py-1 text-[10px] font-medium tracking-[0.2em] text-brand uppercase">
-              Confirmed
+              {copy.eyebrow}
             </p>
 
             <span className="mt-6 flex h-14 w-14 items-center justify-center rounded-full bg-brand text-on-brand shadow-[inset_0_1px_1px_rgba(255,255,255,0.25)]">
@@ -166,35 +223,94 @@ export function ConsultationForm() {
             </span>
 
             <h2 className="mt-6 font-[family-name:var(--font-outfit)] text-2xl font-medium tracking-tight text-ink sm:text-3xl">
-              Request received
+              {copy.headline}
             </h2>
             <p className="mt-3 max-w-prose text-base leading-relaxed text-steel">
-              Thanks, {firstName}. We review every request carefully so the next
-              step is useful — not a pitch deck with a calendar link bolted on.
+              {copy.body(firstName)}
             </p>
 
-            <ul className="mt-8 space-y-3 border-t border-ink/5 pt-6">
-              {successNext.map((item) => (
-                <li
-                  key={item}
-                  className="flex gap-3 text-sm leading-relaxed text-steel"
-                >
-                  <Check
-                    weight="bold"
-                    className="mt-0.5 h-4 w-4 shrink-0 text-brand"
-                  />
-                  <span>{item}</span>
+            {qualified ? (
+              <ul className="mt-8 space-y-3 border-t border-ink/5 pt-6">
+                {qualifiedBullets.map((item) => (
+                  <li
+                    key={item}
+                    className="flex gap-3 text-sm leading-relaxed text-steel"
+                  >
+                    <Check
+                      weight="bold"
+                      className="mt-0.5 h-4 w-4 shrink-0 text-brand"
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ul className="mt-8 space-y-3 border-t border-ink/5 pt-6">
+                {resourceLinks.map((link) => (
+                  <li key={link.href} className="text-sm leading-relaxed">
+                    <Link
+                      href={link.href}
+                      className="font-medium text-ink underline-offset-4 hover:text-brand hover:underline"
+                    >
+                      {link.label}
+                    </Link>
+                    {link.description ? (
+                      <span className="text-steel">, {link.description}</span>
+                    ) : null}
+                  </li>
+                ))}
+                <li className="text-sm leading-relaxed">
+                  <Link
+                    href="/process"
+                    className="font-medium text-ink underline-offset-4 hover:text-brand hover:underline"
+                  >
+                    How we work
+                  </Link>
+                  <span className="text-steel">, process and engagement shape</span>
                 </li>
-              ))}
-            </ul>
+              </ul>
+            )}
+
+            {!qualified ? (
+              <p className="mt-6 max-w-prose text-sm leading-relaxed text-steel">
+                {resourcesSuccessCopy.softNote}
+              </p>
+            ) : null}
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button href={cta.secondary.href} withArrow>
-                {cta.secondary.label}
-              </Button>
-              <Button href={cta.supporting.href} variant="secondary">
-                {cta.supporting.label}
-              </Button>
+              {qualified && bookingUrl ? (
+                <Button
+                  href={bookingUrl}
+                  withArrow
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {qualifiedSuccessCopy.primaryWithCal}
+                </Button>
+              ) : null}
+              {qualified && !bookingUrl ? (
+                <p className="text-sm font-medium text-ink">
+                  {qualifiedSuccessCopy.primaryWithoutCal}
+                </p>
+              ) : null}
+              {qualified ? (
+                <Button
+                  href={qualifiedSuccessCopy.secondaryHref}
+                  variant={bookingUrl ? "secondary" : "primary"}
+                  withArrow={!bookingUrl}
+                >
+                  {qualifiedSuccessCopy.secondaryLabel}
+                </Button>
+              ) : (
+                <>
+                  <Button href="/case-studies" withArrow>
+                    Explore case studies
+                  </Button>
+                  <Button href="/process" variant="secondary">
+                    See how we work
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </DoubleBezel>
@@ -202,22 +318,31 @@ export function ConsultationForm() {
     );
   }
 
+
   return (
-    <form
-      onSubmit={onSubmit}
-      noValidate
-      className="rounded-[var(--radius-card)] border border-border bg-white p-6 sm:p-8"
-      aria-describedby={errors.form ? `${formId}-form-error` : undefined}
-    >
+    <DoubleBezel tone="elevated">
+      <form
+        onSubmit={onSubmit}
+        noValidate
+        className="p-6 sm:p-8"
+        aria-describedby={errors.form ? `${formId}-form-error` : undefined}
+      >
       <div className="mb-8">
         <div className="flex items-baseline justify-between">
-          <p className="text-sm font-medium text-ink">
+          <p
+            ref={stepTitleRef}
+            tabIndex={-1}
+            className="text-sm font-medium text-ink outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          >
             {stepMeta[step].title}
           </p>
           <p className="text-xs font-medium uppercase tracking-wide text-steel">
             Step {step + 1} of {consultationSteps.length}
           </p>
         </div>
+        <p className="sr-only" aria-live="polite">
+          {`Step ${step + 1} of ${consultationSteps.length}: ${stepMeta[step].title}`}
+        </p>
         <p className="mt-1 text-sm text-steel">{stepMeta[step].hint}</p>
         <div
           className="mt-4 h-1 w-full overflow-hidden rounded-full bg-surface-muted"
@@ -228,8 +353,8 @@ export function ConsultationForm() {
           aria-label="Form progress"
         >
           <div
-            className="h-full rounded-full bg-brand transition-[width] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
-            style={{ width: `${progress}%` }}
+            className="h-full w-full origin-left rounded-full bg-brand transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
+            style={{ transform: `scaleX(${progress / 100})` }}
           />
         </div>
       </div>
@@ -491,6 +616,7 @@ export function ConsultationForm() {
             type="button"
             disabled={pending || !stepReady}
             onClick={submitForm}
+            withArrow
             className="min-w-44"
           >
             {pending ? "Sending request…" : "Submit request"}
@@ -519,7 +645,8 @@ export function ConsultationForm() {
         </Link>
         .
       </p>
-    </form>
+      </form>
+    </DoubleBezel>
   );
 }
 
