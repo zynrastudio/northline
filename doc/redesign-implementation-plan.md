@@ -538,13 +538,13 @@ Section 14 critical fails for this project (after Soft Structuralism site):
 
 | Check | Outcome |
 | --- | --- |
-| `northline-after` production | **Live** — https://northline-after.vercel.app (Git deploy from `after`) |
+| `northline-after` production | **Live** — https://northline-after.vercel.app (`268c685`, `dpl_ErKWcHQTGPqLRGPLHEwupt4QznwQ`) |
 | README URLs | **Updated** — after redesign framing + before/after table |
 | Before vs after notes | **Linked** — [`doc/case-study-before-after.md`](./case-study-before-after.md) → strategy, plan, audit |
 | Before site untouched | **Confirmed** — https://northline-before.vercel.app still brochure baseline; no deploys to `northline-before` |
 | Production env | `NEXT_PUBLIC_SITE_URL`, Cal.com, n8n webhook + secret, `AUTOMATION_FALLBACK_EMAIL=true`, `GA_DEBUG=false`. Resend / GA measurement ID unset locally → Mode A email soft-logs until keys are added |
 
-Deploy commit SHA recorded at end of this section after push.
+Smoke: home Soft Structuralism, `/book-consultation`, `/case-studies/apex-manufacturing`, `/services` → 308 `/solutions`.
 
 #### H.5 Launch (checklist archive)
 
